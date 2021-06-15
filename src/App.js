@@ -11,6 +11,7 @@ import LandingPage from './view/pages/LandingPage';
 import PageFrame from './components/PageFrame';
 import UserManage from './view/pages/UserManage';
 import HomePage from './view/pages/HomePage';
+import UITestPage from './view/pages/UITestPage';
 
 function App(props) {
   const mount = async () => {
@@ -40,7 +41,7 @@ function App(props) {
             <Switch>
               <Route exact path={paths.BASE} component={LandingPage} />
               <Route exact path={paths.LOGIN} component={Login} />
-              <Route exact path={paths.UITEST} component={Login} />
+              <Route exact path={paths.UITEST} component={UITestPage} />
               <Switch>
                 <Route exact path={paths.HOME}>
                   <HomePage />
