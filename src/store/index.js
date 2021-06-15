@@ -3,14 +3,17 @@ import {
   configureStore,
   getDefaultMiddleware
 } from '@reduxjs/toolkit';
+
 import { modManageSlice } from './modManage';
 import { userManageSlice } from './userManage';
+import { adminAuthenSlice } from './authen';
 // const rootPersistConfig = {
 //   key: 'root',
 //   storage
 // };
 
 const persistedReducer = combineReducers({
+  authen: adminAuthenSlice.reducer,
   modManage: modManageSlice.reducer,
   userManage: userManageSlice.reducer
 });

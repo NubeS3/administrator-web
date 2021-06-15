@@ -1,5 +1,5 @@
 import React from 'react';
-import UserManagementCardDropdown from '../../UserManagementCardDropdown/UserManagementCardDropdown';
+import UserManagementCardDropdown from './UserManagementCardDropdown';
 
 const UserManagementCard = () => {
   return (

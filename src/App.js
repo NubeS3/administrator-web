@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import store from './store';
@@ -10,6 +10,7 @@ import Login from './view/pages/Login';
 import LandingPage from './view/pages/LandingPage';
 import PageFrame from './components/PageFrame';
 import UserManage from './view/pages/UserManage';
+import HomePage from './view/pages/HomePage';
 
 function App(props) {
   const mount = async () => {
@@ -32,20 +33,28 @@ function App(props) {
     );
   }
   return (
-    <div className="App">
-      <Router basename="/">
-        <Switch>
-          <Route exact path={paths.BASE} component={LandingPage} />
-          <Route exact path={paths.LOGIN} component={Login} />
-          <PageFrame>
+    <Suspense fallback={<div>Loading ...</div>}>
+      <div className="App">
+        <PageFrame>
+          <Router>
             <Switch>
-              <Route path={paths.HOME}></Route>
-              <Route path={paths.USER_MANAGE} component={UserManage}></Route>
+              <Route exact path={paths.BASE} component={LandingPage} />
+              <Route exact path={paths.LOGIN} component={Login} />
+              <Switch>
+                <Route exact path={paths.HOME}>
+                  <HomePage />
+                </Route>
+                <Route
+                  exact
+                  path={paths.USER_MANAGE}
+                  component={UserManage}
+                ></Route>
+              </Switch>
             </Switch>
-          </PageFrame>
-        </Switch>
-      </Router>
-    </div>
+          </Router>
+        </PageFrame>
+      </div>
+    </Suspense>
   );
 }
 
