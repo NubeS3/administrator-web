@@ -1,9 +1,9 @@
-import AdminTable from "./AdminTable/AdminTable";
+import UserManagementCard from "./UserManagementCard/UserManagementCard";
 
 function App() {
   return (
     <div className="App">
-      <AdminTable></AdminTable>
+        <UserManagementCard></UserManagementCard>
     </div>
   );
 }
