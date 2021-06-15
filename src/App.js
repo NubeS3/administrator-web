@@ -8,6 +8,8 @@ import paths from './configs/paths';
 import { verifyAdminAuthentication } from './store/authen';
 import Login from './view/pages/Login';
 import LandingPage from './view/pages/LandingPage';
+import PageFrame from './components/PageFrame';
+import UserManage from './view/pages/UserManage';
 
 function App(props) {
   const mount = async () => {
@@ -35,6 +37,12 @@ function App(props) {
         <Switch>
           <Route exact path={paths.BASE} component={LandingPage} />
           <Route exact path={paths.LOGIN} component={Login} />
+          <PageFrame>
+            <Switch>
+              <Route path={paths.HOME}></Route>
+              <Route path={paths.USER_MANAGE} component={UserManage}></Route>
+            </Switch>
+          </PageFrame>
         </Switch>
       </Router>
     </div>

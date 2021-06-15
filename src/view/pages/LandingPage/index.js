@@ -1,5 +1,11 @@
+import paths from '../../../configs/paths';
+
 const LandingPage = () => {
-  return <> </>;
+  return (
+    <>
+      <a href={paths.LOGIN}>Sign in now</a>{' '}
+    </>
+  );
 };
 
 export default LandingPage;
