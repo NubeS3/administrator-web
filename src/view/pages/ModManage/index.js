@@ -5,6 +5,8 @@ import store from '../../../store';
 import { getUserList } from '../../../store/userManage';
 import ListButtonAdmin from './components/ListButtonAdmin';
 import ModTable from './components/ModTable';
+import CreateMod from '../../../components/CreateUser/CreateMod';
+import SideDrawerN from '../../../components/SideDrawer/SideDrawer';
 
 const UserManage = ({ authToken, modList }) => {
   useEffect(() => {
@@ -25,6 +27,9 @@ const UserManage = ({ authToken, modList }) => {
           </div>
         </header>
         <div className="flex flex-col justify-center items-center py-2 px-2">
+          <SideDrawerN>
+            <CreateMod authToken={authToken} />
+          </SideDrawerN>
           <ListButtonAdmin />
           <ModTable items={modList} />
         </div>

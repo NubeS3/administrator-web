@@ -6,7 +6,9 @@ const initialState = {
   done: false,
   err: null,
   userList: [],
-  message: ''
+  message: '',
+  isFulfilled: false,
+  isRejected: false
 };
 
 export const getUserList = createAsyncThunk(
@@ -30,8 +32,32 @@ export const getUserList = createAsyncThunk(
   }
 );
 
+export const addUser = createAsyncThunk(
+  'userManage/addUser',
+  async (data, api) => {
+    try {
+      api.dispatch(userManageSlice.actions.loading(true));
+      const response = await axios.post(
+        endpoints.ADD_USER,
+        {
+          email: data.email,
+          password: data.password
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${data.authToken}`
+          }
+        }
+      );
+      return response.data;
+    } catch (err) {
+      return api.rejectWithValue(err.response.data.error);
+    }
+  }
+);
+
 export const disableUser = createAsyncThunk(
-  'adminManage/disableMod',
+  'adminManage/disableUser',
   async (data, api) => {
     try {
       api.dispatch(userManageSlice.actions.loading(true));
@@ -60,16 +86,22 @@ export const userManageSlice = createSlice({
   reducers: {
     loading: (state) => {
       state.isLoading = true;
+    },
+    clearState: (state) => {
+      state.isRejected = false;
+      state.isFulfilled = false;
     }
   },
   extraReducers: {
     [getUserList.fulfilled]: (state, action) => {
+      state.isFulfilled = true;
       state.userList = action.payload;
       state = { ...state, isLoading: false };
       state.done = true;
       state.err = null;
     },
     [getUserList.rejected]: (state, action) => {
+      state.isRejected = true;
       state.isLoading = false;
       state.err = action.payload;
     },

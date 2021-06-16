@@ -1,16 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import CreateUser from '../../../components/CreateUser/CreateUser';
+import AddUserSuccess from '../../../components/AddUserSuccess/AddUserSuccess';
+import SideDrawerN from '../../../components/SideDrawer/SideDrawer';
 import PortalFrame from '../../../components/PortalFrame';
 import store from '../../../store';
 import { getUserList } from '../../../store/userManage';
 import ListButtonAdmin from './components/ListButtonAdmin';
 import UserTable from './components/UserTable';
 
-const UserManage = ({ authToken, userList }) => {
+const UserManage = ({ authToken, userList, isRejected, isFulfilled }) => {
+  const [createUserState, setCreateUserState] = useState(false);
   useEffect(() => {
     store.dispatch(getUserList({ authToken: authToken }));
     return () => {};
   }, []);
+
+  useEffect(() => {
+    if (isFulfilled) {
+      setCreateUserState(true);
+    }
+    if (isRejected) {
+      setCreateUserState(false);
+    }
+  }, [isFulfilled, isRejected]);
 
   return (
     <PortalFrame>
@@ -25,6 +38,13 @@ const UserManage = ({ authToken, userList }) => {
           </div>
         </header>
         <div className="flex flex-col justify-center items-center py-2 px-2">
+          <SideDrawerN>
+            {createUserState ? (
+              <AddUserSuccess />
+            ) : (
+              <CreateUser authToken={authToken} />
+            )}
+          </SideDrawerN>
           <ListButtonAdmin />
           <UserTable items={userList} />
         </div>
@@ -36,7 +56,9 @@ const UserManage = ({ authToken, userList }) => {
 const mapStateToProps = (state) => {
   const authToken = state.authen.authToken;
   const userList = state.userManage.userList;
-  return { authToken, userList };
+  const isFulfilled = state.userManage.isFulfilled;
+  const isRejected = state.userManage.isRejected;
+  return { authToken, userList, isFulfilled, isRejected };
 };
 
 export default connect(mapStateToProps)(UserManage);
