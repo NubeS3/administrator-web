@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
 import SideDrawer from '../../components/SideDrawer/SideDrawer';
+import CreateUser from '../../components/CreateUser/CreateUser';
+import AddUserSuccess from '../../components/AddUserSuccess/AddUserSuccess';
 
 const UITestPage = (props) => {
   return (

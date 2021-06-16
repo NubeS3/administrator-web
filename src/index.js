@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { persistStore } from 'redux-persist';
+// import { PersistGate } from 'redux-persist/integration/react';
+// import { persistStore } from 'redux-persist';
 import store from './store';
 require('dotenv').config();
-let persistor = persistStore(store);
+// let persistor = persistStore(store);
 
 ReactDOM.render(
   <Provider store={store}>

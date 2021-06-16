@@ -8,7 +8,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function DropdownMenu() {
+export default function DropdownMenu({ type }) {
   const [isShowing, setIsShowing] = useState(false);
 
   return (
@@ -96,7 +96,7 @@ export default function DropdownMenu() {
                         'block px-4 py-2 text-sm'
                       )}
                     >
-                      Edit User
+                      Ban User
                     </a>
                   )}
                 </Menu.Item>

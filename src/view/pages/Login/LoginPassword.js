@@ -3,10 +3,20 @@ import { connect } from 'react-redux';
 import { preValidatePasswordLogin } from '../../../helpers/preValidateLoginData';
 import paths from '../../../configs/paths';
 import store from '../../../store';
-import { changeLoginEmail, clearState, login } from '../../../store/authen';
+import {
+  changeAdminLoginUsername,
+  clearState,
+  adminLogin
+} from '../../../store/authen';
 import { useHistory } from 'react-router';
 
-const LoginPassword = ({ loginEmail, errMessage, isRejected, isFulfilled }) => {
+const LoginPassword = ({
+  loginUsername,
+  errMessage,
+  isRejected,
+  isFulfilled,
+  toggler
+}) => {
   const [pass, setPass] = React.useState('');
   const [err, setErr] = React.useState('');
   const history = useHistory();
@@ -18,84 +28,86 @@ const LoginPassword = ({ loginEmail, errMessage, isRejected, isFulfilled }) => {
       return setErr(error);
     }
     setErr('');
-    store.dispatch(login({ email: loginEmail, password: pass }));
+    store.dispatch(adminLogin({ username: loginUsername, password: pass }));
   };
 
   useEffect(() => {
     if (isRejected) {
-      setErr(errMessage.error);
+      setErr(errMessage);
       store.dispatch(clearState());
       return;
     }
     if (isFulfilled) {
       store.dispatch(clearState());
-      history.push(paths.BASE);
+      history.push(paths.HOME);
     }
     return () => {
       // cleanup
     };
   }, [isRejected, isFulfilled]);
-  const changeLogInEmail = () => {
-    store.dispatch(changeLoginEmail());
-    // props.history.push(paths.LOGIN_EMAIL);
+  const changeLoginUsername = () => {
+    store.dispatch(changeAdminLoginUsername());
+    toggler();
+    // props.history.push(paths.LOGIN_USERNAME);
   };
 
   return (
-    <>
-      {/* <div className="mx-auto flex flex-col items-center justify-center max-w-lg py-4 px-8 bg-white shadow-lg rounded-lg my-40">
-      <h1 className="pt-6 pb-8 text-2xl">Sign in to your NubeS3 account</h1> */}
-      <div className="flex flex-col justify-center items-center">
-        <p>{loginEmail}</p>
-        <a href="" className="text-blue-600" onClick={changeLogInEmail}>
-          {'(Change)'}
-        </a>
+    <div className="flex flex-col pt-4 w-5/6 text-sm">
+      <p className="text-gray-600">NubeS3</p>
+      <div className="flex mt-4 items-center">
+        <button className="focus:outline-none" onClick={changeLoginUsername}>
+          <svg
+            className="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"
+            />
+          </svg>
+        </button>
+        <p className="ml-2">{loginUsername}</p>
       </div>
-      <form onSubmit={handlePasswordSubmit} className="pt-4 w-5/6">
-        <div class="relative text-gray-400">
-          <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </span>
-          <input
-            type="password"
-            onChange={(e) => setPass(e.target.value)}
-            class="w-full py-2 text-sm text-white rounded-sm pl-10 border border-gray-300 focus:outline-none focus:bg-white focus:text-gray-900 focus:border-indigo-500"
-            placeholder="Password"
-            autocomplete="off"
-            autoFocus
-          />
+      <p className="mt-4 text-xl font-bold">Enter password</p>
+      <form onSubmit={handlePasswordSubmit} className="flex flex-col">
+        <input
+          type="password"
+          onChange={(e) => setPass(e.target.value)}
+          className="w-full mt-2 px-1 py-1 border-b border-green-600 focus:bg-blue-100 focus:outline-none"
+          placeholder="Password"
+          autocomplete="off"
+          autoFocus
+        />
+        <div role="group" className="mt-4 flex items-center">
+          <input type="checkbox" id="keep-signin" />
+          <label htmlFor="keep-signin">&nbsp;Keep me sign in</label>
+          <br />
         </div>
+        <a href="#" className="mt-4 text-blue-600">
+          Forgot password?
+        </a>
         <button
           type="submit"
-          className="relative w-full my-2 rounded-sm flex justify-center py-2 px-4 border border-transparent text-sm font-medium text-white bg-blue-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="mt-4 px-8 py-1 bg-blue-600 hover:bg-indigo-600 text-white self-end"
         >
           Sign in
         </button>
       </form>
       <p className="text-red-500 mt-6 text-center">{err}</p>
-      <a href="#" className="text-blue-600 py-6">
-        Forgot Password?
-      </a>
       {/* </div> */}
-    </>
+    </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  console.log(state.authen.err);
+  // console.log(state.authen.err);
   return {
     errMessage: state.authen.err,
-    loginEmail: state.authen.loginEmail,
+    loginUsername: state.authen.loginUsername,
     isLoggingIn: state.authen.isLoggingIn,
     isFulfilled: state.authen.isFulfilled,
     isRejected: state.authen.isRejected
