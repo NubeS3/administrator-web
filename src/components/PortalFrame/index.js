@@ -8,7 +8,7 @@ const PortalFrame = (props) => {
       <PortalAppBar />
       <div className="bg-transparent dark:bg-gray-800 relative h-screen">
         <div className="flex items-start justify-between">
-          <div className="h-screen hiddenlg:block relative w-65">
+          <div className="h-screen hiddenlg:block relative w-64">
             <Sidebar />
           </div>
           <div className="flex flex-col w-full md:space-y-4">
@@ -27,16 +27,11 @@ const PortalFrame = (props) => {
                   </svg>
                 </button>
               </div>
-              <div className="relative flex flex-col justify-end h-full px-3 mt-2 md:w-full">
-                <div className="relative p-1 flex items-center w-full space-x-4 justify-end">
-                  <div className="flex items-center text-gray-500 dark:text-white text-md focus:outline-none hover:font-bold"></div>
-                  <p className="flex dark:text-white text-md text-blue-500 hover:font-bold">
-                    Sign Out
-                  </p>
-                </div>
-              </div>
+              <div className="relative flex flex-col justify-end h-full px-3 mt-2 md:w-full"></div>
             </header>
-            <div {...props}>{props.children}</div>
+            <div className="ml-10" {...props}>
+              {props.children}
+            </div>
           </div>
         </div>
       </div>

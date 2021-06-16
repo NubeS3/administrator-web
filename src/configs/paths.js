@@ -2,8 +2,8 @@ const paths = {
   BASE: '/',
   LOGIN: '/sign-in',
   HOME: '/portal',
-  USER_MANAGE: '/portal/manage-user',
-  ADMIN_MANAGE: '/portal/manage-admin',
+  USER_MANAGE: '/portal/manage-users',
+  MOD_MANAGE: '/portal/manage-mods',
   UITEST: '/ui-test'
 };
 
