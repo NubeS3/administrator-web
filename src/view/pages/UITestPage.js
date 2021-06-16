@@ -6,16 +6,16 @@ const UITestPage = (props) => {
   return (
     <div>
       <SideDrawer>
-        <CustomButton1>abcszzzz</CustomButton1>
+        <DrawerLayout>abcszzzz</DrawerLayout>
       </SideDrawer>
     </div>
   );
 };
 
-const CustomButton1 = ({ close, children }) => {
+const DrawerLayout = ({ close, children }) => {
   return (
     <div>
-      {/* ....ui owr ddy nhe */}
+      {/* ....UI o day */}
       <button onClick={close}>{children}</button>;
     </div>
   );
