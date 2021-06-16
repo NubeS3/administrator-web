@@ -5,8 +5,8 @@ import SideDrawer from '../../components/SideDrawer/SideDrawer';
 const UITestPage = (props) => {
   return (
     <div>
-      <SideDrawer>
-        <div>abcs</div>
+      <SideDrawer id="ngu">
+        <button onClick={SideDrawer.close}>abcs</button>
       </SideDrawer>
     </div>
   );

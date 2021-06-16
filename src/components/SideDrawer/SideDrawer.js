@@ -1,4 +1,4 @@
-import React, { cloneElement, useState } from 'react';
+import React, { useState } from 'react';
 
 const SideDrawerN = ({ children }) => {
   const [isShow, setShow] = useState(false);
@@ -9,8 +9,11 @@ const SideDrawerN = ({ children }) => {
 
   if (isShow) {
     drawerClasses = 'transition transform translate-x-0';
-    backdropClasses = ' backdrop-filter backdrop-brightness-50 ';
+    backdropClasses =
+      ' backdrop-filter backdrop-brightness-50 w-screen h-screen';
     closeBtn = <button className="w-screen h-screen" onClick={close} />;
+  } else {
+    backdropClasses = ' backdrop-filter-none  w-full h-full';
   }
 
   function open() {
@@ -23,7 +26,7 @@ const SideDrawerN = ({ children }) => {
   }
 
   return (
-    <div className={backdropClasses + `w-screen h-screen`}>
+    <div className={backdropClasses}>
       <div
         className={
           drawerClasses +
@@ -31,10 +34,10 @@ const SideDrawerN = ({ children }) => {
         }
       >
         <div className="flex flex-col sm:flex-row sm:justify-around ">
-          <div className="w-72 h-screen">{children} </div>
+          <div className=" h-screen">{children} </div>
         </div>
       </div>
-      <div onClick={open}>HEY HEY HEY</div>
+      <div onClick={open}>Click here to open</div>
       {closeBtn}
     </div>
   );
