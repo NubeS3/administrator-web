@@ -61,7 +61,7 @@ export const disableUser = createAsyncThunk(
   async (data, api) => {
     try {
       api.dispatch(userManageSlice.actions.loading(true));
-      const response = await axios.post(
+      const response = await axios.patch(
         endpoints.BAN_USER,
         {
           email: data.email,
