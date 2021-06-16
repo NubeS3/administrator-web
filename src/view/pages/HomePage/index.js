@@ -1,10 +1,13 @@
 import UserManagementCard from '../../../components/UserManagementCard/UserManagementCard';
+import PortalFrame from '../../../components/PortalFrame';
 
 const HomePage = () => {
   return (
-    <div style={{ width: '1000px', height: '1000px' }}>
-      <UserManagementCard />
-    </div>
+    <PortalFrame>
+      <div style={{ width: '1000px', height: '1000px' }}>
+        <UserManagementCard />
+      </div>
+    </PortalFrame>
   );
 };
 

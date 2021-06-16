@@ -1,4 +1,5 @@
 import React from 'react';
+import paths from '../../configs/paths';
 import Transition from './Transition';
 const Sidebar = () => {
   const [isClosed, setClosed] = React.useState(false);
@@ -28,7 +29,7 @@ const Sidebar = () => {
           </button>
         </div>
       )}
-      <div className="absolute top-0 left-0">
+      <div className="absolute top-1 left-0 z-20">
         <Transition
           show={!isClosed}
           enter="transition-all duration-300"
@@ -138,7 +139,7 @@ const Sidebar = () => {
                       />
                     </svg>
 
-                    <span className="mx-4 font-medium">User</span>
+                    <span className="mx-4 font-medium">Users</span>
                   </div>
 
                   {!isHiddenUser ? (
@@ -177,21 +178,15 @@ const Sidebar = () => {
                   <div>
                     <a
                       className="flex items-center ml-10 px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
-                      href="#"
+                      href={paths.USER_MANAGE}
                     >
-                      Item 1{' '}
+                      Active Users{' '}
                     </a>
                     <a
                       className="flex items-center ml-10 px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
-                      href="#"
+                      href={paths.USER_MANAGE}
                     >
-                      Item 1{' '}
-                    </a>
-                    <a
-                      className="flex items-center ml-10 px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
-                      href="#"
-                    >
-                      Item 1{' '}
+                      Disable Users{' '}
                     </a>
                   </div>
                 )}
@@ -254,21 +249,15 @@ const Sidebar = () => {
                   <div>
                     <a
                       className="flex items-center ml-10 px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
-                      href="#"
+                      href={paths.ADMIN_MANAGE}
                     >
-                      Item 1{' '}
+                      Active Mods{' '}
                     </a>
                     <a
                       className="flex items-center ml-10 px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
-                      href="#"
+                      href={paths.ADMIN_MANAGE}
                     >
-                      Item 1{' '}
-                    </a>
-                    <a
-                      className="flex items-center ml-10 px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
-                      href="#"
-                    >
-                      Item 1{' '}
+                      Disabled Mods{' '}
                     </a>
                   </div>
                 )}
@@ -293,7 +282,7 @@ const Sidebar = () => {
                       />
                     </svg>
 
-                    <span className="mx-4 font-medium">Billing</span>
+                    <span className="mx-4 font-medium">Reports</span>
                   </div>
                   {!isHiddenBill ? (
                     <svg
@@ -331,67 +320,18 @@ const Sidebar = () => {
                   <div>
                     <a
                       className="flex items-center ml-10 px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
-                      href="#"
+                      href={paths.USER_MANAGE}
                     >
-                      Item 1{' '}
+                      Usage{' '}
                     </a>
                     <a
                       className="flex items-center ml-10 px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
                       href="#"
                     >
-                      Item 1{' '}
-                    </a>
-                    <a
-                      className="flex items-center ml-10 px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
-                      href="#"
-                    >
-                      Item 1{' '}
+                      Activity{' '}
                     </a>
                   </div>
                 )}
-                {/* <a
-                  className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700"
-                  href="#"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-                    />
-                  </svg>
-
-                  <span className="mx-4 font-medium">Group</span>
-                </a>
-
-                <a
-                  className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700"
-                  href="#"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-                    />
-                  </svg>
-
-                  <span className="mx-4 font-medium">Billing</span>
-                </a> */}
 
                 <hr className="my-6 dark:border-gray-600" />
 

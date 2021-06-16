@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { preValidateEmailLogin } from '../../../helpers/preValidateLoginData';
-import paths from '../../../configs/paths';
 import store from '../../../store';
 
-import { loginEmail } from '../../../store/auth/auth';
+import { loginEmail } from '../../../store/authen';
 
 const LoginEmail = (props) => {
   let [email, setEmail] = React.useState(props.loginEmail);

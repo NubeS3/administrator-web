@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import { preValidatePasswordLogin } from '../../../helpers/preValidateLoginData';
 import paths from '../../../configs/paths';
 import store from '../../../store';
-import { changeLoginEmail, clearState, login } from '../../../store/authen';
+import {
+  adminLogin,
+  changeLoginEmail,
+  clearState
+} from '../../../store/authen';
 import { useHistory } from 'react-router';
 
 const LoginPassword = ({ loginEmail, errMessage, isRejected, isFulfilled }) => {
@@ -18,7 +22,7 @@ const LoginPassword = ({ loginEmail, errMessage, isRejected, isFulfilled }) => {
       return setErr(error);
     }
     setErr('');
-    store.dispatch(login({ email: loginEmail, password: pass }));
+    store.dispatch(adminLogin({ email: loginEmail, password: pass }));
   };
 
   useEffect(() => {
@@ -29,12 +33,13 @@ const LoginPassword = ({ loginEmail, errMessage, isRejected, isFulfilled }) => {
     }
     if (isFulfilled) {
       store.dispatch(clearState());
-      history.push(paths.BASE);
+      history.push(paths.HOME);
     }
     return () => {
       // cleanup
     };
   }, [isRejected, isFulfilled]);
+
   const changeLogInEmail = () => {
     store.dispatch(changeLoginEmail());
     // props.history.push(paths.LOGIN_EMAIL);

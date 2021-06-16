@@ -8,10 +8,11 @@ import paths from './configs/paths';
 import { verifyAdminAuthentication } from './store/authen';
 import Login from './view/pages/Login/index.js';
 import LandingPage from './view/pages/LandingPage';
-import PageFrame from './components/PageFrame';
 import UserManage from './view/pages/UserManage';
 import HomePage from './view/pages/HomePage';
 import UITestPage from './view/pages/UITestPage';
+// import PortalLayoutRoute from './view/routes/PortalLayoutRoute';
+// import LandingLayoutRoute from './view/routes/LandingLayoutRoute';
 
 function App(props) {
   const mount = async () => {
@@ -36,25 +37,40 @@ function App(props) {
   return (
     <Suspense fallback={<div>Loading ...</div>}>
       <div className="App">
-        <PageFrame>
-          <Router>
-            <Switch>
-              <Route exact path={paths.BASE} component={LandingPage} />
-              <Route exact path={paths.LOGIN} component={Login} />
-              <Route exact path={paths.UITEST} component={UITestPage} />
-              <Switch>
-                <Route exact path={paths.HOME}>
-                  <HomePage />
-                </Route>
-                <Route
-                  exact
-                  path={paths.USER_MANAGE}
-                  component={UserManage}
-                ></Route>
-              </Switch>
-            </Switch>
-          </Router>
-        </PageFrame>
+        <Router>
+          <Switch>
+            <Route exact path={paths.BASE} component={LandingPage} />
+            <Route exact path={paths.LOGIN} component={Login} />
+            <Route exact path={paths.UITEST} component={UITestPage} />
+            <Route exact path={paths.HOME}>
+              <HomePage />
+            </Route>
+            <Route
+              exact
+              path={paths.USER_MANAGE}
+              component={UserManage}
+            ></Route>
+            {/* <LandingLayoutRoute
+              exact
+              path={paths.BASE}
+              component={LandingPage}
+            />
+            <LandingLayoutRoute exact path={paths.LOGIN} component={Login} />
+            <LandingLayoutRoute
+              exact
+              path={paths.UITEST}
+              component={UITestPage}
+            />
+            <PortalLayoutRoute exact path={paths.HOME}>
+              <HomePage />
+            </PortalLayoutRoute>
+            <PortalLayoutRoute
+              exact
+              path={paths.USER_MANAGE}
+              component={UserManage}
+            ></PortalLayoutRoute> */}
+          </Switch>
+        </Router>
       </div>
     </Suspense>
   );
