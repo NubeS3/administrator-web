@@ -27,12 +27,5 @@ const DrawerLayout = ({ close }) => {
   );
 };
 
-const page = ({}) => {
-  return (
-    <div>
-      {/* ....UI  các thứ ở đây */}
-      <div>Click here to open</div>
-    </div>
-  );
-};
+
 export default UITestPage;
