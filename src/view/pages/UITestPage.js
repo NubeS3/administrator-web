@@ -6,8 +6,17 @@ const UITestPage = (props) => {
   return (
     <div>
       <SideDrawer>
-        <div className="w-72">Day la test page</div>
+        <CustomButton1>abcszzzz</CustomButton1>
       </SideDrawer>
+    </div>
+  );
+};
+
+const CustomButton1 = ({ close, children }) => {
+  return (
+    <div>
+      {/* ....ui owr ddy nhe */}
+      <button onClick={close}>{children}</button>;
     </div>
   );
 };

@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { cloneElement, useState } from 'react';
 
-const SideDrawerN = ({ children }) => {
+const SideDrawer = ({ children }) => {
   const [isShow, setShow] = useState(false);
 
   let drawerClasses = ' transition transform translate-x-full ';
   let backdropClasses = ' ';
   let closeBtn = <></>;
+
+  const customChildren = cloneElement(children, { close, open });
 
   if (isShow) {
     drawerClasses = 'transition transform translate-x-0';
@@ -34,7 +36,7 @@ const SideDrawerN = ({ children }) => {
         }
       >
         <div className="flex flex-col sm:flex-row sm:justify-around ">
-          <div className=" h-screen">{children} </div>
+          <div className=" h-screen">{customChildren}</div>
         </div>
       </div>
       <div onClick={open}>Click here to open</div>
@@ -43,4 +45,4 @@ const SideDrawerN = ({ children }) => {
   );
 };
 
-export default SideDrawerN;
+export default SideDrawer;
