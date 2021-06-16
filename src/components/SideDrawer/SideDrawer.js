@@ -34,7 +34,7 @@ const SideDrawerN = ({ children }) => {
         }
       >
         <div className="flex flex-col sm:flex-row sm:justify-around ">
-          <div className="w-72 h-screen">{children} </div>
+          <div className=" h-screen">{children} </div>
         </div>
       </div>
       <div onClick={open}>Click here to open</div>
