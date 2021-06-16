@@ -3,13 +3,25 @@ import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import paths from '../../configs/paths';
+import store from '../../store';
+import { disableUser } from '../../store/userManage';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function DropdownMenu({ type }) {
+export default function DropdownMenu({
+  type,
+  setBanUserState,
+  email,
+  authToken
+}) {
   const [isShowing, setIsShowing] = useState(false);
+
+  const onBan = () => {
+    store.dispatch(disableUser({ email: email, authToken: authToken }));
+    setBanUserState();
+  };
 
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -95,7 +107,7 @@ export default function DropdownMenu({ type }) {
                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                         'block px-4 py-2 text-sm'
                       )}
-                      onClick={}
+                      onClick={onBan}
                     >
                       Ban User
                     </a>

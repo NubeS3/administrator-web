@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import DropdownMenu from '../../../../components/DropdownMenu/DropdownMenu';
 
-const UserTable = ({ items }) => {
+const UserTable = ({ items, setBanUserState }, ...props) => {
   const [selected, setSelected] = React.useState([]);
 
   const findWithProperty = (arr, prop, value) => {
@@ -94,7 +95,11 @@ const UserTable = ({ items }) => {
                   <div className="inline-block mr-12">
                     <p className="text-xl">{item?.id || 'Holder'}</p>
                   </div>
-                  <DropdownMenu></DropdownMenu>
+                  <DropdownMenu
+                    setBanUserState={() => setBanUserState()}
+                    authToken={props.authToken}
+                    email={item?.email}
+                  ></DropdownMenu>
                 </td>
                 <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap">
                   {item?.email || 'Holder'}
@@ -113,4 +118,9 @@ const UserTable = ({ items }) => {
   );
 };
 
-export default UserTable;
+const mapStateToProps = (state) => {
+  const authToken = state.authen.authToken;
+  return { authToken };
+};
+
+export default connect(mapStateToProps)(UserTable);

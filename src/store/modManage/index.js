@@ -7,6 +7,8 @@ const initialState = {
   done: false,
   err: null,
   modList: [],
+  isFulfilled: false,
+  isRejected: false,
   message: ''
 };
 
@@ -63,8 +65,7 @@ export const disableMod = createAsyncThunk(
       const response = await axios.post(
         endpoints.BAN_MOD,
         {
-          username: data.username,
-          disable: true
+          username: data.username
         },
         {
           headers: {
@@ -85,6 +86,10 @@ export const modManageSlice = createSlice({
   reducers: {
     loading: (state, action) => {
       state = { ...state, isLoading: action.payload };
+    },
+    clearState: (state) => {
+      state.isRejected = false;
+      state.isFulfilled = false;
     }
   },
   extraReducers: {

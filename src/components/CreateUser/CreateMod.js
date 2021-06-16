@@ -1,19 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import store from '../../store';
-import { addUser } from '../../store/userManage';
+import { addMod } from '../../store/modManage';
 
 const CreateUser = ({ authToken }) => {
   const formik = useFormik({
     initialValues: {
-      email: '',
+      username: '',
       password: ''
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .email('Invalid email format')
-        .matches(/^[^\s@]+@[^\s@]+$/, 'Invalid email format')
+        .matches(/^[^\s@]+@[^\s@]+$/, 'Invalid username format')
         .required('Required!'),
       password: Yup.string()
         .min(8, 'Minimum 8 characters')
@@ -25,15 +24,9 @@ const CreateUser = ({ authToken }) => {
         .required('Required!')
     }),
     onSubmit: (values) => {
-      // const error = preValidateRegisterData(values);
-      // // if (error) {
-      // //   return setError(error);
-      // // }
-      // setError("");
-      console.log(values.password);
       store.dispatch(
-        addUser({
-          email: values.email,
+        addMod({
+          username: values.email,
           password: values.password,
           authToken: authToken
         })
@@ -43,7 +36,7 @@ const CreateUser = ({ authToken }) => {
 
   return (
     <div className="w-full">
-      <p className="font-medium text-lg py-2 px-12">Add a user</p>
+      <p className="font-medium text-lg py-2 px-12">Add a mod</p>
       <hr />
       <form onSubmit={formik.handleSubmit}>
         <p className="font-medium text-2xl px-12 py-10">Set up the basics</p>
@@ -54,20 +47,20 @@ const CreateUser = ({ authToken }) => {
         <div className="px-12 py-12">
           <div>
             <label htmlFor="">
-              Email <span className="text-red-600">*</span>
+              Username <span className="text-red-600">*</span>
             </label>
             <input
               className="shadow appearance-none border rounded w-2/3 block mt-3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              name="email"
-              type="email"
-              placeholder="Email"
+              name="username"
+              type="text"
+              placeholder="Username"
               value={formik.values.email}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
             {formik.errors.email ? (
               <div className="text-red-600 text-sm" role="alert">
-                {formik.errors.email}
+                {formik.errors.username}
               </div>
             ) : null}
           </div>
