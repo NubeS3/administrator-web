@@ -8,7 +8,7 @@ import UserTable from './components/UserTable';
 
 const UserManage = ({ authToken, userList }) => {
   useEffect(() => {
-    store.dispatch(getUserList({ authToken: authToken }));
+    store.dispatch(getUserList({ authToken: authToken, limit: 10, offset: 0 }));
     return () => {};
   }, []);
 
@@ -24,7 +24,7 @@ const UserManage = ({ authToken, userList }) => {
             </div>
           </div>
         </header>
-        <div className="flex flex-col justify-center items-center py-2 px-2">
+        <div className="flex flex-col justify-center items-start py-2 px-2">
           <ListButtonAdmin />
           <UserTable items={userList} />
         </div>

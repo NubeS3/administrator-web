@@ -203,9 +203,7 @@ const ListButtonAdmin = () => {
     <div className="flex flex-col">
       <div className="flex flex-row flex-1">
         <AddUserButton />
-        <UserTemplateButton />
         <AddMultipleUserButton />
-        <MultiFactorAuthenticateButton />
         <DeleteUserButton />
         <RefreshButton />
         <ResetPasswordButton />

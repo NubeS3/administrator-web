@@ -22,7 +22,7 @@ export const getUserList = createAsyncThunk(
           }
         }
       );
-
+      console.log(response.data);
       return response.data;
     } catch (err) {
       return api.rejectWithValue(err.response.data.error);
