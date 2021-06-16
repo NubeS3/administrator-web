@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SuccessBanUser = ({ close }) => {
+const SuccessBanUser = ({ close, user }) => {
   return (
     <div className="flex flex-col w-96">
       <div className="flex flex-row justify-between px-4 py-4">
@@ -16,7 +16,7 @@ const SuccessBanUser = ({ close }) => {
             clipRule="evenodd"
           />
         </svg>
-        <h1 className="text-2xl font-medium">Alexa has been banned</h1>
+        <h1 className="text-2xl font-medium">{user} has been banned</h1>
         <button className="self-start focus:outline-none" onClick={close}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@ const SuccessBanUser = ({ close }) => {
           </svg>
         </button>
       </div>
-      <p className="px-5">You can unbanned users later.</p>
+      <p className="px-5">You can unbann them later.</p>
       <button
         className="absolute bottom-10 left-8 py-2 px-4 bg-gray-400 text-black w-24 transition ease-in duration-200 hover:bg-gray-600 text-center text-base focus:outline-none rounded-sm"
         onClick={close}

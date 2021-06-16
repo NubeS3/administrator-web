@@ -8,29 +8,28 @@ import ModTable from './components/ModTable';
 import CreateMod from '../../../components/CreateUser/CreateMod';
 import AddModSuccess from '../../../components/AddUserSuccess/AddModSuccess';
 import SideDrawer from '../../../components/SideDrawer/SideDrawer';
-import { clearState } from '../../../store/modManage';
+import { clearModState } from '../../../store/modManage';
+import BanUser from '../../../components/DeleteUserSideDrawer/BanUser';
+import SuccessBanUser from '../../../components/DeleteUserSideDrawer/SuccessBanUser';
 
 const ModManage = ({ authToken, modList, isFulfilled, isRejected }) => {
   const [openCreateMod, setOpenCreateMod] = React.useState(false);
   const [openBanMod, setOpenBanMod] = React.useState(false);
-  const [createModState, setCreateModState] = React.useState(false);
-  const [banModState, setBanModState] = React.useState(false);
+
+  const [selected, setSelected] = React.useState([]);
 
   useEffect(() => {
     store.dispatch(getModList({ authToken: authToken, limit: 10, offset: 0 }));
     return () => {};
   }, []);
 
-  useEffect(() => {
-    if (isFulfilled) {
-      setCreateModState(true);
-      store.dispatch(clearState());
-    }
-    if (isRejected) {
-      setCreateModState(false);
-      store.dispatch(clearState());
-    }
-  }, [isFulfilled, isRejected]);
+  const onAddModClick = () => {
+    setOpenCreateMod(true);
+  };
+
+  const onBanModClick = () => {
+    setOpenBanMod(true);
+  };
 
   return (
     <PortalFrame>
@@ -45,15 +44,42 @@ const ModManage = ({ authToken, modList, isFulfilled, isRejected }) => {
           </div>
         </header>
         <div className="flex flex-col justify-center items-center py-2 px-2">
-          <SideDrawer>
-            {createModState ? (
-              <CreateMod authToken={authToken} />
-            ) : (
-              <AddModSuccess />
-            )}
+          <SideDrawer
+            show={openCreateMod}
+            setShow={() => setOpenCreateMod(true)}
+            setHide={() => setOpenCreateMod(false)}
+          >
+            <CreateMod
+              authToken={authToken}
+              onCancel={() => setOpenCreateMod(false)}
+              onClose={() => setOpenCreateMod(false)}
+            />
           </SideDrawer>
-          <ListButtonAdmin />
-          <ModTable authToken={authToken} items={modList} />
+          <SideDrawer
+            show={openBanMod}
+            setShow={() => setOpenBanMod(true)}
+            setHide={() => setOpenBanMod(false)}
+          >
+            <BanUser
+              selected={selected}
+              onClose={() => setOpenBanMod(false)}
+              setSelected={setSelected}
+              user={selected?.length > 0 ? selected?.[0].username : ''}
+              type={'mod'}
+            />
+          </SideDrawer>
+
+          <ListButtonAdmin
+            onAddUserClick={onAddModClick}
+            onBanUserClick={onBanModClick}
+            selected={selected}
+          />
+          <ModTable
+            authToken={authToken}
+            items={modList}
+            selected={selected}
+            setSelected={setSelected}
+          />
         </div>
       </div>
     </PortalFrame>
@@ -63,9 +89,7 @@ const ModManage = ({ authToken, modList, isFulfilled, isRejected }) => {
 const mapStateToProps = (state) => {
   const authToken = state.authen.authToken;
   const modList = state.modManage.modList;
-  const isFulfilled = state.modManage.isFulfilled;
-  const isRejected = state.modManage.isRejected;
-  return { authToken, modList, isFulfilled, isRejected };
+  return { authToken, modList };
 };
 
 export default connect(mapStateToProps)(ModManage);

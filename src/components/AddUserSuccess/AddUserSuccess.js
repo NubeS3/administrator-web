@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AddUserSuccess = () => {
+const AddUserSuccess = ({ type, newUser, onClose }) => {
   return (
     <div className="w-full">
       <div>
@@ -20,29 +20,43 @@ const AddUserSuccess = () => {
             />
           </svg>
           <p className="font-bold text-2xl inline ml-3">
-            User added to active users
+            {type === 'user'
+              ? 'User added to active users'
+              : 'Mod added to active moderators'}
           </p>
         </div>
 
         <p className="text-sm px-12 text-gray-400">
-          User will now appear in your user list
+          {type === 'user'
+            ? 'User will now appear in your user list'
+            : 'Mod will now appear in your moderator list'}
         </p>
         <div className="px-12 py-12">
           <p className="font-bold text-sm mb-3">User Details</p>
           <p>
-            Display name: <span>User</span>
+            ID number: <span>{newUser?.id}</span>
           </p>
-          <p>
-            Username: <span>nguyenvana@gmail.com</span>
-          </p>
-          <p>
+          {type === 'user' ? (
+            <p>
+              Email: <span>{newUser?.email}</span>
+            </p>
+          ) : (
+            <p>
+              Username: <span>{newUser?.username}</span>
+            </p>
+          )}
+
+          {/* <p>
             Password: <span>asdfjlkasdf</span>
-          </p>
+          </p> */}
         </div>
         <hr />
         <div className="px-12">
           <div className="mt-6">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button
+              onClick={onClose}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
               Close
             </button>
           </div>

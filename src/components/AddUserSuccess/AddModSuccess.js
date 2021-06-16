@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AddUserSuccess = () => {
+const AddModSuccess = () => {
   return (
     <div className="w-full">
       <div>
@@ -52,4 +52,4 @@ const AddUserSuccess = () => {
   );
 };
 
-export default AddUserSuccess;
+export default AddModSuccess;

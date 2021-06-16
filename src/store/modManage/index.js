@@ -7,6 +7,7 @@ const initialState = {
   done: false,
   err: null,
   modList: [],
+  newMod: {},
   isFulfilled: false,
   isRejected: false,
   message: ''
@@ -87,7 +88,7 @@ export const modManageSlice = createSlice({
     loading: (state, action) => {
       state = { ...state, isLoading: action.payload };
     },
-    clearState: (state) => {
+    clearModState: (state) => {
       state.isRejected = false;
       state.isFulfilled = false;
     }
@@ -108,6 +109,7 @@ export const modManageSlice = createSlice({
       state.isFulfilled = true;
       state.isLoading = false;
       state.modList = [...state.modList, action.payload];
+      state.newMod = {};
     },
     [addMod.rejected]: (state, action) => {
       state.isRejected = true;
@@ -115,13 +117,18 @@ export const modManageSlice = createSlice({
       state.err = action.payload;
     },
     [disableMod.fulfilled]: (state, action) => {
+      state.isFulfilled = true;
+      state.modList = state.modList.filter(
+        (mod) => mod.id !== action.payload.id
+      );
       state.isLoading = false;
     },
     [disableMod.rejected]: (state, action) => {
+      state.isRejected = true;
       state.isLoading = false;
       state.err = action.payload;
     }
   }
 });
 
-export const { clearState } = modManageSlice.actions;
+export const { clearModState } = modManageSlice.actions;

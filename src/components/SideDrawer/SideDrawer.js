@@ -1,18 +1,19 @@
 import React, { cloneElement, useRef, useState, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
-const SideDrawer = (props) => {
-  const [open, setOpen] = useState(true);
+const SideDrawer = ({ show, setShow, setHide, ...props }) => {
   let completeButtonRef = useRef(null);
 
+  const customChildren = cloneElement(props.children, { setHide });
+
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={show} as={Fragment}>
       <Dialog
         as="div"
         static
         className="fixed inset-0 overflow-hidden z-50"
-        open={open}
-        onClose={setOpen}
+        open={show}
+        onClose={setHide}
         initialFocus={completeButtonRef}
       >
         <div className="absolute inset-0 overflow-hidden">
@@ -51,7 +52,7 @@ const SideDrawer = (props) => {
                     <button
                       ref={completeButtonRef}
                       className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
-                      onClick={() => setOpen(false)}
+                      onClick={setHide}
                     >
                       <span className="sr-only">Close panel</span>
                     </button>
@@ -59,9 +60,9 @@ const SideDrawer = (props) => {
                 </Transition.Child>
                 <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
                   <div className="px-4 sm:px-6">
-                    <Dialog.Title className="text-lg font-medium text-gray-900">
+                    {/* <Dialog.Title className="text-lg font-medium text-gray-900">
                       Panel title
-                    </Dialog.Title>
+                    </Dialog.Title> */}
                   </div>
                   <div className="mt-6 relative flex-1 px-4 sm:px-6">
                     {/* Replace with your content */}
@@ -89,8 +90,7 @@ const SideDrawer = (props) => {
   // let backdropClasses = ' ';
   // let closeBtn = <></>;
 
-  // const customChildren = cloneElement(children, { close });
-  // // const customMainPage = cloneElement(mainPage, { open });
+  // const customMainPage = cloneElement(mainPage, { open });
 
   // if (isShow) {
   //   drawerClasses = 'transition transform translate-x-0';

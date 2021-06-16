@@ -5,7 +5,7 @@ import AddUserSuccess from '../../../components/AddUserSuccess/AddUserSuccess';
 import SideDrawer from '../../../components/SideDrawer/SideDrawer';
 import PortalFrame from '../../../components/PortalFrame';
 import store from '../../../store';
-import { clearState, getUserList } from '../../../store/userManage';
+import { clearUserState, getUserList } from '../../../store/userManage';
 import ListButtonAdmin from './components/ListButtonAdmin';
 import UserTable from './components/UserTable';
 import BanUser from '../../../components/DeleteUserSideDrawer/BanUser';
@@ -15,31 +15,21 @@ const UserManage = ({ authToken, userList, isRejected, isFulfilled }) => {
   const [openCreateUser, setOpenCreateUser] = useState(false);
   const [openBanUser, setOpenBanUser] = useState(false);
   const [createUserState, setCreateUserState] = useState(false);
-  const [banUserState, setBanUserState] = useState(false);
+  const [selected, setSelected] = useState([]);
 
   useEffect(() => {
     store.dispatch(getUserList({ authToken: authToken, limit: 10, offset: 0 }));
     return () => {};
   }, []);
 
-  useEffect(() => {
-    if (isFulfilled) {
-      setCreateUserState(true);
-      store.dispatch(clearState());
-    }
-    if (isRejected) {
-      setCreateUserState(false);
-      store.dispatch(clearState());
-    }
-  }, [isFulfilled, isRejected]);
-
-  const onBanUser = () => {
-    setBanUserState(!banUserState);
-  };
-
   const onAddUserClick = () => {
     setOpenCreateUser(true);
   };
+
+  const onBanUserClick = () => {
+    setOpenBanUser(true);
+  };
+
   return (
     <PortalFrame>
       <div className="h-screen lg:block relative w-full">
@@ -53,29 +43,40 @@ const UserManage = ({ authToken, userList, isRejected, isFulfilled }) => {
           </div>
         </header>
         <div className="flex flex-col justify-center items-center py-2 px-2">
-          {openCreateUser && (
-            <SideDrawer>
-              {createUserState ? (
-                <AddUserSuccess />
-              ) : (
-                <CreateUser authToken={authToken} />
-              )}
-            </SideDrawer>
-          )}
-          {openCreateUser && (
-            <SideDrawer>
-              {banUserState ? (
-                <SuccessBanUser />
-              ) : (
-                <BanUser onBan={onBanUser} />
-              )}
-            </SideDrawer>
-          )}
-          <ListButtonAdmin onAddUserClick={onAddUserClick} />
+          <SideDrawer
+            show={openCreateUser}
+            setShow={() => setOpenCreateUser(true)}
+            setHide={() => setOpenCreateUser(false)}
+          >
+            <CreateUser
+              authToken={authToken}
+              onCancel={() => setOpenCreateUser(false)}
+              onClose={() => setOpenCreateUser(false)}
+            />
+          </SideDrawer>
+          <SideDrawer
+            show={openBanUser}
+            setShow={() => setOpenBanUser(true)}
+            setHide={() => setOpenBanUser(false)}
+          >
+            <BanUser
+              onClose={() => setOpenBanUser(false)}
+              selected={selected}
+              setSelected={setSelected}
+              user={selected?.length > 0 ? selected?.[0].email : ''}
+              type={'user'}
+            />
+          </SideDrawer>
+          <ListButtonAdmin
+            onAddUserClick={onAddUserClick}
+            onBanUserClick={onBanUserClick}
+            selected={selected}
+          />
           <UserTable
             authToken={authToken}
             items={userList}
-            setBanUserState={onBanUser}
+            selected={selected}
+            setSelected={setSelected}
           />
         </div>
       </div>

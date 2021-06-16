@@ -93,7 +93,10 @@ const Sidebar = () => {
 
             <div className="flex flex-col justify-between flex-1 border-r-2">
               <nav>
-                <button className="flex items-center px-4 py-2 w-full text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200">
+                <button
+                  onClick={() => (window.location.href = paths.HOME)}
+                  className="flex items-center px-4 py-2 w-full text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
@@ -113,7 +116,6 @@ const Sidebar = () => {
                 </button>
                 <button
                   className="flex items-center justify-between px-4 py-2 mt-5 w-full text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700"
-                  href={paths.HOME}
                   onClick={() => setHiddenUser(!isHiddenUser)}
                 >
                   <div className="flex items-center">

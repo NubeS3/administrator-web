@@ -6,6 +6,7 @@ const initialState = {
   done: false,
   err: null,
   userList: [],
+  newUser: {},
   message: '',
   isFulfilled: false,
   isRejected: false
@@ -87,7 +88,7 @@ export const userManageSlice = createSlice({
     loading: (state) => {
       state.isLoading = true;
     },
-    clearState: (state) => {
+    clearUserState: (state) => {
       state.isRejected = false;
       state.isFulfilled = false;
     }
@@ -107,6 +108,7 @@ export const userManageSlice = createSlice({
       state.isFulfilled = true;
       state.isLoading = false;
       state.userList = [...state.userList, action.payload];
+      state.newUser = action.payload;
     },
     [addUser.rejected]: (state, action) => {
       state.isRejected = true;
@@ -114,14 +116,19 @@ export const userManageSlice = createSlice({
       state.err = action.payload;
     },
 
-    [disableUser.fulfilled]: (state) => {
+    [disableUser.fulfilled]: (state, action) => {
+      state.isFulfilled = true;
+      state.userList = state.userList.filter(
+        (user) => user.id !== action.payload.id
+      );
       state.isLoading = false;
     },
     [disableUser.rejected]: (state, action) => {
+      state.isRejected = true;
       state.isLoading = false;
       state.err = action.payload;
     }
   }
 });
 
-export const { clearState } = userManageSlice.actions;
+export const { clearUserState } = userManageSlice.actions;
