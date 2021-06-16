@@ -6,11 +6,12 @@ import localStorageKeys from './configs/localStorageKeys';
 import './index.css';
 import paths from './configs/paths';
 import { verifyAdminAuthentication } from './store/authen';
-import Login from './view/pages/Login/Login';
+import Login from './view/pages/Login/Login.js';
 import LandingPage from './view/pages/LandingPage';
 import PageFrame from './components/PageFrame';
 import UserManage from './view/pages/UserManage';
 import HomePage from './view/pages/HomePage';
+import UITestPage from './view/pages/UITestPage';
 
 function App(props) {
   const mount = async () => {
@@ -40,6 +41,7 @@ function App(props) {
             <Switch>
               <Route exact path={paths.BASE} component={LandingPage} />
               <Route exact path={paths.LOGIN} component={Login} />
+              <Route exact path={paths.UITEST} component={UITestPage} />
               <Switch>
                 <Route exact path={paths.HOME}>
                   <HomePage />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { preValidateUsernameLogin } from '../../../helpers/preValidateLoginDate';
+import { preValidateUsernameLogin } from '../../../helpers/preValidateLoginData';
 import paths from '../../../configs/paths';
 import store from '../../../store';
 

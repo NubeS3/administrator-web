@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { preValidatePasswordLogin } from '../../../helpers/preValidateLoginDate';
+import { preValidatePasswordLogin } from '../../../helpers/preValidateLoginData';
 import paths from '../../../configs/paths';
 import store from '../../../store';
 import {
