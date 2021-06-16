@@ -16,6 +16,7 @@ const UserManage = ({ authToken, userList, isRejected, isFulfilled }) => {
   const [openBanUser, setOpenBanUser] = useState(false);
   const [createUserState, setCreateUserState] = useState(false);
   const [banUserState, setBanUserState] = useState(false);
+
   useEffect(() => {
     store.dispatch(getUserList({ authToken: authToken, limit: 10, offset: 0 }));
     return () => {};
@@ -72,9 +73,9 @@ const UserManage = ({ authToken, userList, isRejected, isFulfilled }) => {
           )}
           <ListButtonAdmin onAddUserClick={onAddUserClick} />
           <UserTable
+            authToken={authToken}
             items={userList}
             setBanUserState={onBanUser}
-            authToken={authToken}
           />
         </div>
       </div>

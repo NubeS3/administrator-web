@@ -119,7 +119,7 @@ const DeleteUserButton = () => {
           d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6"
         />
       </svg>
-      Diable a mod
+      Disable a mod
     </button>
   );
 };
@@ -204,9 +204,7 @@ const ListButtonAdmin = ({ onAddUserClick }) => {
     <div className="flex flex-col">
       <div className="flex flex-row flex-1">
         <AddUserButton onClick={onAddUserClick} />
-        <UserTemplateButton />
         <AddMultipleUserButton />
-        <MultiFactorAuthenticateButton />
         <DeleteUserButton />
         <RefreshButton />
         <ResetPasswordButton />

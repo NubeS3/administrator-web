@@ -201,7 +201,7 @@ const ExportUserButton = () => {
 
 const ListButtonAdmin = ({ onAddUserClick }) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col align-start">
       <div className="flex flex-row flex-1">
         <AddUserButton onClick={onAddUserClick} />
         <AddMultipleUserButton />
@@ -209,9 +209,6 @@ const ListButtonAdmin = ({ onAddUserClick }) => {
         <RefreshButton />
         <ResetPasswordButton />
         <ExportUserButton />
-      </div>
-      <div className="flex flex-row self-end">
-        <p>Filter</p>
       </div>
     </div>
   );

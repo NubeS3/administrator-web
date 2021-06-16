@@ -9,9 +9,10 @@ const UITestPage = (props) => {
   return (
     <div>
       <PageFrame>
-        <SideDrawer>
+        <SideDrawer mainPage={<div>abcs</div>}>
           <DrawerLayout></DrawerLayout>
         </SideDrawer>
+        <div>test</div>
       </PageFrame>
     </div>
   );

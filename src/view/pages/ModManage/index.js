@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PortalFrame from '../../../components/PortalFrame';
 import store from '../../../store';
-import { getUserList } from '../../../store/userManage';
+import { getModList } from '../../../store/modManage';
 import ListButtonAdmin from './components/ListButtonAdmin';
 import ModTable from './components/ModTable';
 import CreateMod from '../../../components/CreateUser/CreateMod';
@@ -10,13 +10,17 @@ import AddModSuccess from '../../../components/AddUserSuccess/AddModSuccess';
 import SideDrawer from '../../../components/SideDrawer/SideDrawer';
 import { clearState } from '../../../store/modManage';
 
-const ModManage = ({ authToken, modList, isRejected, isFulfilled }) => {
+const ModManage = ({ authToken, modList, isFulfilled, isRejected }) => {
+  const [openCreateMod, setOpenCreateMod] = React.useState(false);
+  const [openBanMod, setOpenBanMod] = React.useState(false);
+  const [createModState, setCreateModState] = React.useState(false);
+  const [banModState, setBanModState] = React.useState(false);
+
   useEffect(() => {
-    store.dispatch(getUserList({ authToken: authToken, limit: 10, offset: 0 }));
+    store.dispatch(getModList({ authToken: authToken, limit: 10, offset: 0 }));
     return () => {};
   }, []);
 
-  const [createModState, setCreateModState] = useState(false);
   useEffect(() => {
     if (isFulfilled) {
       setCreateModState(true);
@@ -27,6 +31,7 @@ const ModManage = ({ authToken, modList, isRejected, isFulfilled }) => {
       store.dispatch(clearState());
     }
   }, [isFulfilled, isRejected]);
+
   return (
     <PortalFrame>
       <div className="h-screen lg:block relative w-full">
@@ -48,7 +53,7 @@ const ModManage = ({ authToken, modList, isRejected, isFulfilled }) => {
             )}
           </SideDrawer>
           <ListButtonAdmin />
-          <ModTable items={modList} />
+          <ModTable authToken={authToken} items={modList} />
         </div>
       </div>
     </PortalFrame>
