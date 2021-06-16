@@ -1,7 +1,6 @@
 import React from 'react';
-import SideDrawerN from '../SideDrawer/SideDrawer';
 
-const SuccessBanUser = ({ onClose, children }) => {
+const SuccessBanUser = ({ close }) => {
   return (
     <div className="flex flex-col w-96">
       <div className="flex flex-row justify-between px-4 py-4">
@@ -38,7 +37,7 @@ const SuccessBanUser = ({ onClose, children }) => {
       <p className="px-5">You can unbanned users later.</p>
       <button
         className="absolute bottom-10 left-8 py-2 px-4 bg-gray-400 text-black w-24 transition ease-in duration-200 hover:bg-gray-600 text-center text-base focus:outline-none rounded-sm"
-        onClick={onClose}
+        onClick={close}
       >
         Close
       </button>
