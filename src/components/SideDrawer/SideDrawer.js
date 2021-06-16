@@ -35,7 +35,7 @@ const SideDrawer = ({ children }) => {
           ' absolute bg-white dark:bg-gray-800 inline-block right-0 duration-300 ease-out'
         }
       >
-        <div className="flex flex-col sm:flex-row sm:justify-around ">
+        <div className=" flex flex-col sm:flex-row sm:justify-around ">
           <div className=" h-screen">{customChildren}</div>
         </div>
       </div>

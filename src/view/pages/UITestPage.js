@@ -3,22 +3,25 @@ import React, { useState } from 'react';
 import SideDrawer from '../../components/SideDrawer/SideDrawer';
 import CreateUser from '../../components/CreateUser/CreateUser';
 import AddUserSuccess from '../../components/AddUserSuccess/AddUserSuccess';
+import PageFrame from '../../components/PageFrame';
 
 const UITestPage = (props) => {
   return (
     <div>
-      <SideDrawer>
-        <DrawerLayout>abcszzzz</DrawerLayout>
-      </SideDrawer>
+      <PageFrame>
+        <SideDrawer>
+          <DrawerLayout></DrawerLayout>
+        </SideDrawer>
+      </PageFrame>
     </div>
   );
 };
 
-const DrawerLayout = ({ close, children }) => {
+const DrawerLayout = ({ close }) => {
   return (
     <div>
-      {/* ....UI o day */}
-      <button onClick={close}>{children}</button>;
+      {/* ....UI  các thứ ở đây */}
+      <button onClick={close}>gì gì đó</button>;
     </div>
   );
 };
