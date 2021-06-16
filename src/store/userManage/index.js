@@ -96,11 +96,21 @@ export const userManageSlice = createSlice({
     [getUserList.fulfilled]: (state, action) => {
       state.isFulfilled = true;
       state.userList = action.payload;
-      state = { ...state, isLoading: false };
       state.done = true;
       state.err = null;
     },
     [getUserList.rejected]: (state, action) => {
+      state.isRejected = true;
+      state.isLoading = false;
+      state.err = action.payload;
+    },
+
+    [addUser.fulfilled]: (state, action) => {
+      state.isFulfilled = true;
+      state.isLoading = false;
+      state.userList = [...state.userList, action.payload];
+    },
+    [addUser.rejected]: (state, action) => {
       state.isRejected = true;
       state.isLoading = false;
       state.err = action.payload;
@@ -115,3 +125,5 @@ export const userManageSlice = createSlice({
     }
   }
 });
+
+export const { clearState } = userManageSlice.actions;

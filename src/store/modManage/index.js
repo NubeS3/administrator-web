@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, isRejected } from '@reduxjs/toolkit';
 import endpoints from '../../configs/endpoints';
 
 const initialState = {
@@ -94,7 +94,7 @@ export const modManageSlice = createSlice({
   },
   extraReducers: {
     [getModList.fulfilled]: (state, action) => {
-      state.adminList = action.payload;
+      state.modList = action.payload;
       state = { ...state, isLoading: false };
       state.done = true;
       state.err = null;
@@ -104,17 +104,18 @@ export const modManageSlice = createSlice({
       state.err = action.payload;
     },
 
-    [addMod.fulfilled]: (state) => {
+    [addMod.fulfilled]: (state, action) => {
+      state.isFulfilled = true;
       state.isLoading = false;
-      // state.adminList = [...state.adminList, ...action.payload]
+      state.modList = [...state.modList, action.payload];
     },
     [addMod.rejected]: (state, action) => {
+      state.isRejected = true;
       state.isLoading = false;
       state.err = action.payload;
     },
-    [disableMod.fulfilled]: (state) => {
+    [disableMod.fulfilled]: (state, action) => {
       state.isLoading = false;
-      // state.adminList = [...state.adminList, ...action.payload]
     },
     [disableMod.rejected]: (state, action) => {
       state.isLoading = false;
@@ -122,3 +123,5 @@ export const modManageSlice = createSlice({
     }
   }
 });
+
+export const { clearState } = modManageSlice.actions;

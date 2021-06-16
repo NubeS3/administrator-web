@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import store from '../../store';
 import { addMod } from '../../store/modManage';
 
-const CreateUser = ({ authToken }) => {
+const CreateUser = ({ authToken, open, close }) => {
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -126,7 +126,10 @@ const CreateUser = ({ authToken }) => {
             >
               Add
             </button>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button
+              onClick={close}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
               Cancel
             </button>
           </div>

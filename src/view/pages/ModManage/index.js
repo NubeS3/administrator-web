@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PortalFrame from '../../../components/PortalFrame';
 import store from '../../../store';
@@ -6,14 +6,27 @@ import { getUserList } from '../../../store/userManage';
 import ListButtonAdmin from './components/ListButtonAdmin';
 import ModTable from './components/ModTable';
 import CreateMod from '../../../components/CreateUser/CreateMod';
-import SideDrawerN from '../../../components/SideDrawer/SideDrawer';
+import AddModSuccess from '../../../components/AddUserSuccess/AddModSuccess';
+import SideDrawer from '../../../components/SideDrawer/SideDrawer';
+import { clearState } from '../../../store/modManage';
 
-const UserManage = ({ authToken, modList }) => {
+const ModManage = ({ authToken, modList, isRejected, isFulfilled }) => {
   useEffect(() => {
     store.dispatch(getUserList({ authToken: authToken }));
     return () => {};
   }, []);
 
+  const [createModState, setCreateModState] = useState(false);
+  useEffect(() => {
+    if (isFulfilled) {
+      setCreateModState(true);
+      store.dispatch(clearState());
+    }
+    if (isRejected) {
+      setCreateModState(false);
+      store.dispatch(clearState());
+    }
+  }, [isFulfilled, isRejected]);
   return (
     <PortalFrame>
       <div className="h-screen lg:block relative w-full">
@@ -27,9 +40,13 @@ const UserManage = ({ authToken, modList }) => {
           </div>
         </header>
         <div className="flex flex-col justify-center items-center py-2 px-2">
-          <SideDrawerN>
-            <CreateMod authToken={authToken} />
-          </SideDrawerN>
+          <SideDrawer>
+            {createModState ? (
+              <CreateMod authToken={authToken} />
+            ) : (
+              <AddModSuccess />
+            )}
+          </SideDrawer>
           <ListButtonAdmin />
           <ModTable items={modList} />
         </div>
@@ -41,7 +58,9 @@ const UserManage = ({ authToken, modList }) => {
 const mapStateToProps = (state) => {
   const authToken = state.authen.authToken;
   const modList = state.modManage.modList;
-  return { authToken, modList };
+  const isFulfilled = state.modManage.isFulfilled;
+  const isRejected = state.modManage.isRejected;
+  return { authToken, modList, isFulfilled, isRejected };
 };
 
-export default connect(mapStateToProps)(UserManage);
+export default connect(mapStateToProps)(ModManage);

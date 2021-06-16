@@ -20,17 +20,17 @@ const AddUserSuccess = () => {
             />
           </svg>
           <p className="font-bold text-2xl inline ml-3">
-            User added to active users
+            Mod added to active mods
           </p>
         </div>
 
         <p className="text-sm px-12 text-gray-400">
-          User will now appear in your user list
+          Mod will now appear in your mod list
         </p>
         <div className="px-12 py-12">
-          <p className="font-bold text-sm mb-3">User Details</p>
+          <p className="font-bold text-sm mb-3">Moderator Details</p>
           <p>
-            Display name: <span>User</span>
+            Display name: <span>Mod</span>
           </p>
           <p>
             Username: <span>nguyenvana@gmail.com</span>

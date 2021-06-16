@@ -2,26 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import CreateUser from '../../../components/CreateUser/CreateUser';
 import AddUserSuccess from '../../../components/AddUserSuccess/AddUserSuccess';
-import SideDrawerN from '../../../components/SideDrawer/SideDrawer';
+import SideDrawer from '../../../components/SideDrawer/SideDrawer';
 import PortalFrame from '../../../components/PortalFrame';
 import store from '../../../store';
-import { getUserList } from '../../../store/userManage';
+import { clearState, getUserList } from '../../../store/userManage';
 import ListButtonAdmin from './components/ListButtonAdmin';
 import UserTable from './components/UserTable';
 
 const UserManage = ({ authToken, userList, isRejected, isFulfilled }) => {
-  const [createUserState, setCreateUserState] = useState(false);
   useEffect(() => {
     store.dispatch(getUserList({ authToken: authToken }));
     return () => {};
   }, []);
 
+  const [createUserState, setCreateUserState] = useState(false);
   useEffect(() => {
     if (isFulfilled) {
       setCreateUserState(true);
+      store.dispatch(clearState());
     }
     if (isRejected) {
       setCreateUserState(false);
+      store.dispatch(clearState());
     }
   }, [isFulfilled, isRejected]);
 
@@ -38,13 +40,13 @@ const UserManage = ({ authToken, userList, isRejected, isFulfilled }) => {
           </div>
         </header>
         <div className="flex flex-col justify-center items-center py-2 px-2">
-          <SideDrawerN>
+          <SideDrawer>
             {createUserState ? (
               <AddUserSuccess />
             ) : (
               <CreateUser authToken={authToken} />
             )}
-          </SideDrawerN>
+          </SideDrawer>
           <ListButtonAdmin />
           <UserTable items={userList} />
         </div>
@@ -58,6 +60,7 @@ const mapStateToProps = (state) => {
   const userList = state.userManage.userList;
   const isFulfilled = state.userManage.isFulfilled;
   const isRejected = state.userManage.isRejected;
+  console.log(isFulfilled, isRejected);
   return { authToken, userList, isFulfilled, isRejected };
 };
 

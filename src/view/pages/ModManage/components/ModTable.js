@@ -1,7 +1,7 @@
 import React from 'react';
 import DropdownMenu from '../../../../components/DropdownMenu/DropdownMenu';
 
-const UserTable = () => {
+const ModTable = ({ items }) => {
   return (
     <div className="flex flex-col w-full mx-auto">
       <table className="w-full table-collapse">
@@ -23,26 +23,28 @@ const UserTable = () => {
           </tr>
         </thead>
         <tbody className="align-baseline">
-          <tr className="group cursor-pointer hover:bg-gray-100">
-            <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap">
-              <div className="inline-block mr-12">
-                <p className="text-xl">Van A</p>
-              </div>
-              <DropdownMenu></DropdownMenu>
-            </td>
-            <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap">
-              nguyenvana@gmail.com
-            </td>
-            <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap">
-              Unlicensed
-            </td>
-            <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap "></td>
-            <td></td>
-          </tr>
+          {items?.map((item, index) => (
+            <tr className="group cursor-pointer hover:bg-gray-100">
+              <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap">
+                <div className="inline-block mr-12">
+                  <p className="text-xl">{item?.id || 'Holder'}</p>
+                </div>
+                <DropdownMenu></DropdownMenu>
+              </td>
+              <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap">
+                {item?.username || 'Holder'}
+              </td>
+              <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap">
+                Unlicensed
+              </td>
+              <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap "></td>
+              <td></td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
   );
 };
 
-export default UserTable;
+export default ModTable;
