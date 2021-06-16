@@ -7,6 +7,7 @@ import ListButtonAdmin from './components/ListButtonAdmin';
 import ModTable from './components/ModTable';
 import CreateMod from '../../../components/CreateUser/CreateMod';
 import SideDrawerN from '../../../components/SideDrawer/SideDrawer';
+import AddUserSuccess from '../../../components/AddUserSuccess/AddUserSuccess';
 
 const ModManage = ({ authToken, modList, isFulfilled, isRejected }) => {
   const [openCreateMod, setOpenCreateMod] = React.useState(false);
@@ -33,7 +34,11 @@ const ModManage = ({ authToken, modList, isFulfilled, isRejected }) => {
         </header>
         <div className="flex flex-col justify-center items-center py-2 px-2">
           <SideDrawerN>
-            <CreateMod authToken={authToken} />
+            {openCreateMod ? (
+              <AddUserSuccess />
+            ) : (
+              <CreateMod authToken={authToken} />
+            )}
           </SideDrawerN>
           <ListButtonAdmin />
           <ModTable authToken={authToken} items={modList} />

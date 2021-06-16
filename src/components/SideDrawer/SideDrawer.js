@@ -8,7 +8,6 @@ const SideDrawer = ({ children, mainPage }) => {
   let closeBtn = <></>;
 
   const customChildren = cloneElement(children, { close });
-  const customMainPage = cloneElement(mainPage, { open });
 
   if (isShow) {
     drawerClasses = 'transition transform translate-x-0';
