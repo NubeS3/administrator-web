@@ -2,15 +2,20 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PortalFrame from '../../../components/PortalFrame';
 import store from '../../../store';
-import { getUserList } from '../../../store/userManage';
+import { getModList } from '../../../store/modManage';
 import ListButtonAdmin from './components/ListButtonAdmin';
 import ModTable from './components/ModTable';
 import CreateMod from '../../../components/CreateUser/CreateMod';
 import SideDrawerN from '../../../components/SideDrawer/SideDrawer';
 
-const UserManage = ({ authToken, modList }) => {
+const ModManage = ({ authToken, modList, isFulfilled, isRejected }) => {
+  const [openCreateMod, setOpenCreateMod] = React.useState(false);
+  const [openBanMod, setOpenBanMod] = React.useState(false);
+  const [createModState, setCreateModState] = React.useState(false);
+  const [banModState, setBanModState] = React.useState(false);
+
   useEffect(() => {
-    store.dispatch(getUserList({ authToken: authToken }));
+    store.dispatch(getModList({ authToken: authToken, limit: 10, offset: 0 }));
     return () => {};
   }, []);
 
@@ -31,7 +36,7 @@ const UserManage = ({ authToken, modList }) => {
             <CreateMod authToken={authToken} />
           </SideDrawerN>
           <ListButtonAdmin />
-          <ModTable items={modList} />
+          <ModTable authToken={authToken} items={modList} />
         </div>
       </div>
     </PortalFrame>
@@ -41,7 +46,9 @@ const UserManage = ({ authToken, modList }) => {
 const mapStateToProps = (state) => {
   const authToken = state.authen.authToken;
   const modList = state.modManage.modList;
-  return { authToken, modList };
+  const isFulfilled = state.modManage.isFulfilled;
+  const isRejected = state.modManage.isRejected;
+  return { authToken, modList, isFulfilled, isRejected };
 };
 
-export default connect(mapStateToProps)(UserManage);
+export default connect(mapStateToProps)(ModManage);

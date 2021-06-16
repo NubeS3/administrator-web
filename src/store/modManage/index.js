@@ -94,7 +94,7 @@ export const modManageSlice = createSlice({
   },
   extraReducers: {
     [getModList.fulfilled]: (state, action) => {
-      state.adminList = action.payload;
+      state.modList = action.payload;
       state = { ...state, isLoading: false };
       state.done = true;
       state.err = null;
@@ -106,7 +106,7 @@ export const modManageSlice = createSlice({
 
     [addMod.fulfilled]: (state) => {
       state.isLoading = false;
-      // state.adminList = [...state.adminList, ...action.payload]
+      // state.modList = [...state.modList, ...action.payload]
     },
     [addMod.rejected]: (state, action) => {
       state.isLoading = false;
@@ -114,7 +114,7 @@ export const modManageSlice = createSlice({
     },
     [disableMod.fulfilled]: (state) => {
       state.isLoading = false;
-      // state.adminList = [...state.adminList, ...action.payload]
+      // state.modList = [...state.modList, ...action.payload]
     },
     [disableMod.rejected]: (state, action) => {
       state.isLoading = false;

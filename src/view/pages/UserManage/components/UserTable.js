@@ -71,9 +71,9 @@ const UserTable = ({ items, setBanUserState, authToken }) => {
             <th className="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-gray-200">
               Verification
             </th>
-            <th className="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-gray-200 text-center">
+            {/* <th className="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-gray-200 text-center">
               Choose Columns
-            </th>
+            </th> */}
             <th className="text-sm uppercase font-semibold text-grey-darker p-3 bg-gray-200"></th>
           </tr>
         </thead>
@@ -93,13 +93,13 @@ const UserTable = ({ items, setBanUserState, authToken }) => {
                 </td>
                 <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap">
                   <div className="inline-block mr-12">
-                    <p className="text-xl">{item?.id || 'Holder'}</p>
+                    <p className="text-lg">{item?.id || 'Holder'}</p>
                   </div>
-                  <DropdownMenu
+                  {/* <DropdownMenu
                     setBanUserState={() => setBanUserState()}
                     authToken={authToken}
                     email={item?.email}
-                  ></DropdownMenu>
+                  ></DropdownMenu> */}
                 </td>
                 <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap">
                   {item?.email || 'Holder'}
@@ -107,7 +107,7 @@ const UserTable = ({ items, setBanUserState, authToken }) => {
                 <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap">
                   Not verified
                 </td>
-                <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap "></td>
+                {/* <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap "></td> */}
                 <td></td>
               </tr>
             );
