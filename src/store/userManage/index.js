@@ -94,13 +94,11 @@ export const userManageSlice = createSlice({
   },
   extraReducers: {
     [getUserList.fulfilled]: (state, action) => {
-      state.isFulfilled = true;
       state.userList = action.payload;
       state.done = true;
       state.err = null;
     },
     [getUserList.rejected]: (state, action) => {
-      state.isRejected = true;
       state.isLoading = false;
       state.err = action.payload;
     },

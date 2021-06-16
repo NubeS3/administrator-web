@@ -12,7 +12,7 @@ import { clearState } from '../../../store/modManage';
 
 const ModManage = ({ authToken, modList, isRejected, isFulfilled }) => {
   useEffect(() => {
-    store.dispatch(getUserList({ authToken: authToken }));
+    store.dispatch(getUserList({ authToken: authToken, limit: 10, offset: 0 }));
     return () => {};
   }, []);
 
