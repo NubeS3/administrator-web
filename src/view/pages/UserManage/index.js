@@ -66,7 +66,11 @@ const UserManage = ({ authToken, userList, isRejected, isFulfilled }) => {
             </SideDrawerN>
           )}
           <ListButtonAdmin />
-          <UserTable items={userList} setBanUserState={onBanUser} />
+          <UserTable
+            authToken={authToken}
+            items={userList}
+            setBanUserState={onBanUser}
+          />
         </div>
       </div>
     </PortalFrame>
