@@ -24,7 +24,7 @@ export const getUserList = createAsyncThunk(
           }
         }
       );
-
+      console.log(response.data);
       return response.data;
     } catch (err) {
       return api.rejectWithValue(err.response.data.error);
@@ -64,7 +64,7 @@ export const disableUser = createAsyncThunk(
       const response = await axios.post(
         endpoints.BAN_USER,
         {
-          username: data.username,
+          email: data.email,
           is_ban: true
         },
         {

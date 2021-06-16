@@ -1,8 +1,9 @@
-const AddUserButton = () => {
+const AddUserButton = ({ onClick }) => {
   return (
     <button
       type="button"
       class="flex pl-2 py-2 px-4 bg-white text-black transition ease-in duration-200 hover:bg-gray-100 text-center text-base focus:outline-none rounded-sm"
+      onClick={onClick}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -198,14 +199,12 @@ const ExportUserButton = () => {
   );
 };
 
-const ListButtonAdmin = () => {
+const ListButtonAdmin = ({ onAddUserClick }) => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row flex-1">
-        <AddUserButton />
-        <UserTemplateButton />
+        <AddUserButton onClick={onAddUserClick} />
         <AddMultipleUserButton />
-        <MultiFactorAuthenticateButton />
         <DeleteUserButton />
         <RefreshButton />
         <ResetPasswordButton />

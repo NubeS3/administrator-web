@@ -17,7 +17,7 @@ const SuccessBanUser = ({ close }) => {
           />
         </svg>
         <h1 className="text-2xl font-medium">Alexa has been banned</h1>
-        <button className="self-start focus:outline-none" onClick={onClose}>
+        <button className="self-start focus:outline-none" onClick={close}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-7 w-7"

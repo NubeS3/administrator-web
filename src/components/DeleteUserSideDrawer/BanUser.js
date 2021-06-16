@@ -1,7 +1,7 @@
 import React from 'react';
 import SideDrawerN from '../SideDrawer/SideDrawer';
 
-const BanUser = ({ close }) => {
+const BanUser = ({ close, onBan }) => {
   return (
     <div className="flex flex-col w-96">
       <div className="flex flex-row justify-between px-4 py-4">
@@ -26,7 +26,10 @@ const BanUser = ({ close }) => {
       <p className="px-5">
         Are you sure want to ban this user? You can unbanned users later.
       </p>
-      <button className="absolute bottom-10 ml-6 py-2 px-4 bg-indigo-400 text-white w-24 transition ease-in duration-200 hover:bg-indigo-600 text-center text-base focus:outline-none rounded-sm">
+      <button
+        className="absolute bottom-10 ml-6 py-2 px-4 bg-indigo-400 text-white w-24 transition ease-in duration-200 hover:bg-indigo-600 text-center text-base focus:outline-none rounded-sm"
+        onClick={onBan}
+      >
         Ban user
       </button>
     </div>
