@@ -1,11 +1,11 @@
-const preValidateEmailLogin = (email = '') => {
-  if (email === '') {
-    return 'Please enter your email';
+const preValidateUsernameLogin = (username = '') => {
+  if (username === '') {
+    return 'Please enter your username';
   }
 
-  if (!/^[^\s@]+@[^\s@]+$/.test(email)) {
-    return 'Invalid email. Try again.';
-  }
+  // if (!/^[a-zA-Z][a-zA-Z0-9_\.]{7,24}$/.test(username)) {
+  //   return 'Invalid username. Try again.';
+  // }
 
   return '';
 };
@@ -15,11 +15,11 @@ const preValidatePasswordLogin = ({ password = '' }) => {
     return 'Please enter password';
   }
 
-  if (password.length < 8) {
-    return 'Invalid email or password. Try again.';
-  }
+  // if (password.length < 8) {
+  //   return 'Invalid username or password. Try again.';
+  // }
 
   return '';
 };
 
-export { preValidateEmailLogin, preValidatePasswordLogin };
+export { preValidateUsernameLogin, preValidatePasswordLogin };

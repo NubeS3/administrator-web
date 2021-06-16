@@ -6,7 +6,7 @@ import localStorageKeys from './configs/localStorageKeys';
 import './index.css';
 import paths from './configs/paths';
 import { verifyAdminAuthentication } from './store/authen';
-import Login from './view/pages/Login/index.js';
+import Login from './view/pages/Login';
 import LandingPage from './view/pages/LandingPage';
 import HomePage from './view/pages/HomePage';
 import UITestPage from './view/pages/UITestPage';

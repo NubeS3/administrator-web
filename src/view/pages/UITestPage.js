@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 
 import SideDrawer from '../../components/SideDrawer/SideDrawer';
+import CreateUser from '../../components/CreateUser/CreateUser';
+import AddUserSuccess from '../../components/AddUserSuccess/AddUserSuccess';
 
 const UITestPage = (props) => {
   return (
-    <div>
+    <div className="w-2/3">
       <SideDrawer id="ngu">
-        <button onClick={SideDrawer.close}>abcs</button>
+        <AddUserSuccess></AddUserSuccess>
       </SideDrawer>
     </div>
   );

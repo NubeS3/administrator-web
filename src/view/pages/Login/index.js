@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { preValidateEmailLogin } from '../../../helpers/preValidateLoginData';
 import paths from '../../../configs/paths';
 import store from '../../../store';
 
 import LoginPassword from './LoginPassword';
-import LoginEmail from './LoginEmail';
+import LoginUsername from './LoginUsername';
 import PageFrame from '../../../components/PageFrame';
 
 const Login = (props) => {
@@ -14,15 +13,21 @@ const Login = (props) => {
     setToggleEmail(!toggleEmail);
   };
   return (
-    <div className="mx-auto flex flex-col items-center justify-center max-w-lg py-4 px-8 bg-white shadow-lg rounded-lg my-40">
-      <h1 className="pt-6 pb-8 text-2xl">Sign in to your admin account</h1>
-      {toggleEmail ? <LoginEmail toggler={emailToggler} /> : <LoginPassword />}
-    </div>
+    <PageFrame>
+      <div className="mx-auto flex flex-col items-center justify-center max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-40">
+        {/* <h1 className="pt-6 pb-8 text-2xl">Sign in to your NubeS3 account</h1> */}
+        {toggleEmail ? (
+          <LoginUsername toggler={emailToggler} />
+        ) : (
+          <LoginPassword toggler={emailToggler} />
+        )}
+      </div>
+    </PageFrame>
   );
 };
 
 const mapStateToProps = (state) => ({
-  loginEmail: state.authen.loginEmail
+  loginUsername: state.authen.loginUsername
 });
 
 export default connect(mapStateToProps)(Login);

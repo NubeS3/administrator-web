@@ -6,12 +6,22 @@ import localStorageKeys from '../../configs/localStorageKeys';
 const initialState = {
   isValidating: false,
   isAdminValidAuthentication: false,
+  loginUsername: localStorage.getItem(localStorageKeys.LOGIN_USERNAME) || '',
   authToken: localStorage.getItem(localStorageKeys.TOKEN_ADMIN) || null,
   isLoggingIn: false,
-  err: null,
-  isFulfiled: false,
-  isRejected: false
+  isFulfilled: false,
+  isRejected: false,
+  err: null
 };
+
+export const loginUsername = createAsyncThunk(
+  'authen/loginUsername',
+  async (data, api) => {
+    localStorage.setItem(localStorageKeys.LOGIN_USERNAME, data.username);
+    api.dispatch(adminAuthenSlice.actions.loginUsername(data.username));
+    return data.username;
+  }
+);
 
 export const adminLogin = createAsyncThunk(
   'adminAuthen/adminLogin',
@@ -22,10 +32,20 @@ export const adminLogin = createAsyncThunk(
         username: data.username,
         password: data.password
       });
+      console.log(response.data);
       return response.data;
     } catch (err) {
       return api.rejectWithValue(err.response.data.error);
     }
+  }
+);
+
+export const changeAdminLoginUsername = createAsyncThunk(
+  'authen/changeAdminLoginUsername',
+  async (data, api) => {
+    localStorage.removeItem(localStorageKeys.LOGIN_USERNAME);
+    api.dispatch(adminAuthenSlice.actions.loginUsername(''));
+    return '';
   }
 );
 
@@ -86,13 +106,13 @@ export const adminAuthenSlice = createSlice({
     },
     reset: (state, action) => {
       state.isValidating = false;
-      state.isValidAuthentication = false;
+      state.isAdminValidAuthentication = false;
       state.authToken = null;
       state.isLoggingIn = false;
       state.err = null;
     },
-    loginEmail: (state, action) => {
-      state.loginEmail = action.payload || '';
+    loginUsername: (state, action) => {
+      state.loginUsername = action.payload || '';
     },
     clearState: (state) => {
       state.isRejected = false;
@@ -102,6 +122,8 @@ export const adminAuthenSlice = createSlice({
   },
   extraReducers: {
     [adminLogin.fulfilled]: (state, action) => {
+      state.isFulfilled = true;
+      state.isValidating = false;
       localStorage.setItem(
         localStorageKeys.TOKEN_ADMIN,
         action.payload.accessToken
@@ -114,6 +136,7 @@ export const adminAuthenSlice = createSlice({
     },
     [adminLogin.rejected]: (state, action) => {
       state.isLoggingIn = false;
+      state.isRejected = true;
       state.err = action.payload;
     },
     [verifyAdminAuthentication.fulfilled]: (state, action) => {
@@ -142,8 +165,20 @@ export const adminAuthenSlice = createSlice({
       state.isAdminValidAuthentication = false;
       state.authToken = null;
       state.err = action.payload;
+    },
+    [loginUsername.fulfilled]: (state, action) => {
+      state.loginUsername = action.payload;
+    },
+    [loginUsername.rejected]: (state, action) => {
+      state.err = action.payload;
+    },
+    [changeAdminLoginUsername.fulfilled]: (state, action) => {
+      state.loginUsername = action.payload;
+    },
+    [changeAdminLoginUsername.rejected]: (state, action) => {
+      state.err = action.payload;
     }
   }
 });
 
-export const { clearState, login } = adminAuthenSlice.reducer;
+export const { clearState } = adminAuthenSlice.actions;
