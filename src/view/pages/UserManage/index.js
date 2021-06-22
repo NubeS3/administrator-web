@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import CreateUser from '../../../components/CreateUser/CreateUser';
-import AddUserSuccess from '../../../components/AddUserSuccess/AddUserSuccess';
 import SideDrawer from '../../../components/SideDrawer/SideDrawer';
 import PortalFrame from '../../../components/PortalFrame';
 import store from '../../../store';
@@ -9,12 +8,10 @@ import { clearUserState, getUserList } from '../../../store/userManage';
 import ListButtonAdmin from './components/ListButtonAdmin';
 import UserTable from './components/UserTable';
 import BanUser from '../../../components/DeleteUserSideDrawer/BanUser';
-import SuccessBanUser from '../../../components/DeleteUserSideDrawer/SuccessBanUser';
 
 const UserManage = ({ authToken, userList, isRejected, isFulfilled }) => {
   const [openCreateUser, setOpenCreateUser] = useState(false);
   const [openBanUser, setOpenBanUser] = useState(false);
-  const [createUserState, setCreateUserState] = useState(false);
   const [selected, setSelected] = useState([]);
 
   useEffect(() => {

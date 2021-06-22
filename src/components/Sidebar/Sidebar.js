@@ -322,15 +322,15 @@ const Sidebar = () => {
                   <div>
                     <a
                       className="flex items-center ml-10 px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
-                      href={paths.USER_MANAGE}
+                      href={paths.REPORT}
                     >
                       Usage{' '}
                     </a>
                     <a
                       className="flex items-center ml-10 px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
-                      href="#"
+                      href={paths.REPORT_ERROR}
                     >
-                      Activity{' '}
+                      Error Log{' '}
                     </a>
                   </div>
                 )}

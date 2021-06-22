@@ -1,13 +1,5 @@
 import React from 'react';
-import DropdownMenu from '../../../../components/DropdownMenu/DropdownMenu';
-
-const ModTable = ({
-  items,
-  setBanModState,
-  authToken,
-  selected,
-  setSelected
-}) => {
+const ModTable = ({ items, selected, setSelected }) => {
   const findWithProperty = (arr, prop, value) => {
     for (var i = 0; i < arr.length; i += 1) {
       if (arr[i][prop] === value) {

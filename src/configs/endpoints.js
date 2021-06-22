@@ -9,7 +9,8 @@ const endpoints = {
   ADD_MOD: `${BASE}/admin/auth/mod`,
   ADD_USER: `${BASE}/admin/auth/user`,
   BAN_USER: `${BASE}/admin/auth/ban-user`,
-  BAN_MOD: `${BASE}/admin/auth/disable-mod`
+  BAN_MOD: `${BASE}/admin/auth/disable-mod`,
+  GET_ERROR_LOG: `${BASE}/admin/auth/err-log`
 };
 
 export default endpoints;
