@@ -6,6 +6,7 @@ const initialState = {
   done: false,
   err: null,
   userList: [],
+  bannedUserList: [],
   newUser: {},
   message: '',
   isFulfilled: false,
@@ -95,7 +96,13 @@ export const userManageSlice = createSlice({
   },
   extraReducers: {
     [getUserList.fulfilled]: (state, action) => {
-      state.userList = action.payload;
+      state.userList = action.payload.filter(
+        (user) => user.is_banned === false
+      );
+      state.bannedUserList = action.payload.filter(
+        (user) => user.is_banned === true
+      );
+
       state.done = true;
       state.err = null;
     },

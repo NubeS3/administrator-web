@@ -1,95 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import PortalFrame from '../../../components/PortalFrame';
-import store from '../../../store';
-import { getModList } from '../../../store/modManage';
-import ListButtonAdmin from './components/ListButtonAdmin';
-import ModTable from './components/ModTable';
-import CreateMod from '../../../components/CreateUser/CreateMod';
-import AddModSuccess from '../../../components/AddUserSuccess/AddModSuccess';
-import SideDrawer from '../../../components/SideDrawer/SideDrawer';
-import { clearModState } from '../../../store/modManage';
-import BanUser from '../../../components/DeleteUserSideDrawer/BanUser';
-import SuccessBanUser from '../../../components/DeleteUserSideDrawer/SuccessBanUser';
+import ActiveMod from './pages/ActiveMod';
+import BannedMod from './pages/BannedMod';
 
-const ModManage = ({ authToken, modList, isFulfilled, isRejected }) => {
-  const [openCreateMod, setOpenCreateMod] = React.useState(false);
-  const [openBanMod, setOpenBanMod] = React.useState(false);
-
-  const [selected, setSelected] = React.useState([]);
-
-  useEffect(() => {
-    store.dispatch(getModList({ authToken: authToken, limit: 10, offset: 0 }));
-    return () => {};
-  }, []);
-
-  const onAddModClick = () => {
-    setOpenCreateMod(true);
-  };
-
-  const onBanModClick = () => {
-    setOpenBanMod(true);
-  };
+const ModManage = () => {
+  const match = useRouteMatch();
 
   return (
     <PortalFrame>
       <div className="h-screen lg:block relative w-full">
-        <header className="w-full h-16 flex items-center justify-between">
-          <div className="relative flex flex-col justify-start h-full px-3 md:w-full">
-            <div className="relative p-1 flex items-center w-full space-x-4 justify-start">
-              <div className="flex items-end text-black dark:text-white text-4xl">
-                Active Moderators
-              </div>
-            </div>
-          </div>
-        </header>
-        <div className="flex flex-col justify-center items-center py-2 px-2">
-          <SideDrawer
-            show={openCreateMod}
-            setShow={() => setOpenCreateMod(true)}
-            setHide={() => setOpenCreateMod(false)}
-          >
-            <CreateMod
-              authToken={authToken}
-              onCancel={() => setOpenCreateMod(false)}
-              onClose={() => setOpenCreateMod(false)}
-            />
-          </SideDrawer>
-          <SideDrawer
-            show={openBanMod}
-            setShow={() => setOpenBanMod(true)}
-            setHide={() => setOpenBanMod(false)}
-          >
-            <BanUser
-              selected={selected}
-              onClose={() => setOpenBanMod(false)}
-              setSelected={setSelected}
-              user={selected?.length > 0 ? selected?.[0].username : ''}
-              type={'mod'}
-            />
-          </SideDrawer>
-
-          <ListButtonAdmin
-            onAddUserClick={onAddModClick}
-            onBanUserClick={onBanModClick}
-            selected={selected}
-          />
-          <ModTable
-            authToken={authToken}
-            items={modList}
-            selected={selected}
-            setSelected={setSelected}
-          />
-        </div>
+        <Switch>
+          <Route exact path={`${match.url}/`}>
+            <ActiveMod />
+          </Route>
+          <Route exact path={`${match.url}/banned`}>
+            <BannedMod />
+          </Route>
+        </Switch>
       </div>
     </PortalFrame>
   );
 };
 
-const mapStateToProps = (state) => {
-  const authToken = state.authen.authToken;
-  const modList = state.modManage.modList;
-  return { authToken, modList };
-};
-
-export default connect(mapStateToProps)(ModManage);
+export default ModManage;

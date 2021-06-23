@@ -45,8 +45,8 @@ function App(props) {
             <Route exact path={paths.LOGIN} component={Login} />
             <Route exact path={paths.UITEST} component={UITestPage} />
             <Route exact path={paths.HOME} component={HomePage} />
-            <Route exact path={paths.USER_MANAGE} component={UserManage} />
-            <Route exact path={paths.MOD_MANAGE} component={ModManage} />
+            <Route path={paths.USER_MANAGE} component={UserManage} />
+            <Route path={paths.MOD_MANAGE} component={ModManage} />
             <Route path={paths.REPORT}>
               <ReportPage />
             </Route>

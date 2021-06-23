@@ -22,7 +22,12 @@ const CreateMod = ({
     },
     validationSchema: Yup.object({
       username: Yup.string()
-        .matches(/^[^\s@]+@[^\s@]+$/, 'Invalid username format')
+        .min(8, 'Minimum 8 characters')
+        .max(24, 'Maximum 24 characters')
+        .matches(
+          /^(?!_.*__)(?!.*__)[A-Za-z\d@$!%*?&#_^]+[^\._]$/,
+          'Username does not start or end with _ or ., does not contain __, _., ._, ..'
+        )
         .required('Required!'),
       password: Yup.string()
         .min(8, 'Minimum 8 characters')
@@ -83,7 +88,7 @@ const CreateMod = ({
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.errors.email ? (
+                {formik.errors.username ? (
                   <div className="text-red-600 text-sm" role="alert">
                     {formik.errors.username}
                   </div>

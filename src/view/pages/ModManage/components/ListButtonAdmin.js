@@ -7,7 +7,7 @@ const AddUserButton = ({ onClick }) => {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-6 mr-1"
+        className="h-5 w-6 mr-1 text-lockmara"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -32,7 +32,7 @@ const UserTemplateButton = () => {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-6 mr-1"
+        className="h-5 w-6 mr-1 text-lockmara"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -57,7 +57,7 @@ const AddMultipleUserButton = () => {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-6 mr-1"
+        className="h-5 w-6 mr-1 text-lockmara"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -69,7 +69,7 @@ const AddMultipleUserButton = () => {
           d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
         />
       </svg>
-      Add multiple users
+      Add multiple mods
     </button>
   );
 };
@@ -82,7 +82,7 @@ const MultiFactorAuthenticateButton = () => {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-6 mr-1"
+        className="h-5 w-6 mr-1 text-lockmara"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -104,7 +104,7 @@ const DeleteUserButton = ({ label, onClick, selected }) => {
     <button
       type="button"
       onClick={onClick}
-      disabled={!!(selected?.length > 2)}
+      disabled={!!(selected?.length > 1)}
       className={
         selected?.length > 1
           ? 'flex pl-2 py-2 px-4 bg-white text-gray-300 transition ease-in duration-200 hover:bg-gray-100 text-center text-base focus:outline-none rounded-sm cursor-not-allowed'
@@ -113,7 +113,7 @@ const DeleteUserButton = ({ label, onClick, selected }) => {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-6 mr-1"
+        className="h-5 w-6 mr-1 text-lockmara"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -138,7 +138,7 @@ const RefreshButton = () => {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-6 mr-1"
+        className="h-5 w-6 mr-1 text-lockmara"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -163,7 +163,7 @@ const ResetPasswordButton = () => {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-6 mr-1"
+        className="h-5 w-6 mr-1 text-lockmara"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -188,7 +188,7 @@ const ExportUserButton = () => {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-6 mr-1"
+        className="h-5 w-6 mr-1 text-lockmara"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -200,17 +200,17 @@ const ExportUserButton = () => {
           d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
         />
       </svg>
-      Export users
+      Export mods
     </button>
   );
 };
 
 const ListButtonAdmin = ({ onAddUserClick, onBanUserClick, selected }) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mb-2">
       <div className="flex flex-row flex-1">
         <AddUserButton onClick={onAddUserClick} />
-        <AddMultipleUserButton />
+        {/* <AddMultipleUserButton /> */}
         {selected?.length > 0 ? (
           <DeleteUserButton
             label={'Ban mod'}

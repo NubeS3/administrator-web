@@ -7,6 +7,7 @@ const initialState = {
   done: false,
   err: null,
   modList: [],
+  bannedModList: [],
   newMod: {},
   isFulfilled: false,
   isRejected: false,
@@ -63,10 +64,11 @@ export const disableMod = createAsyncThunk(
   async (data, api) => {
     try {
       api.dispatch(modManageSlice.actions.loading(true));
-      const response = await axios.post(
+      const response = await axios.patch(
         endpoints.BAN_MOD,
         {
-          username: data.username
+          username: data.username,
+          disable: true
         },
         {
           headers: {
@@ -95,8 +97,11 @@ export const modManageSlice = createSlice({
   },
   extraReducers: {
     [getModList.fulfilled]: (state, action) => {
-      state.modList = action.payload;
-      state = { ...state, isLoading: false };
+      state.modList = action.payload.filter((mod) => mod.is_disabled === false);
+      state.bannedModList = action.payload.filter(
+        (mod) => mod.is_disabled === true
+      );
+
       state.done = true;
       state.err = null;
     },

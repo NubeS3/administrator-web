@@ -29,7 +29,7 @@ const Sidebar = () => {
           </button>
         </div>
       )}
-      <div className="absolute top-1 left-0 z-20">
+      <div className="absolute left-0 z-20">
         <Transition
           show={!isClosed}
           enter="transition-all duration-300"
@@ -42,9 +42,9 @@ const Sidebar = () => {
 
           <aside
             aria-hidden={isClosed}
-            className="bg-white w-64 min-h-screen flex flex-col"
+            className="bg-mercury w-64 min-h-screen flex flex-col"
           >
-            <div className="bg-white px-3 h-10 flex items-center justify-between border-r-2">
+            <div className="bg-mercury px-3 h-10 flex items-center justify-between border-r-2">
               <button
                 tabIndex="1"
                 className="w-10 p-1"
@@ -186,9 +186,9 @@ const Sidebar = () => {
                     </a>
                     <a
                       className="flex items-center ml-10 px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
-                      href={paths.USER_MANAGE}
+                      href={paths.USER_MANAGE_BANNED}
                     >
-                      Disable Users{' '}
+                      Banned Users{' '}
                     </a>
                   </div>
                 )}
@@ -257,9 +257,9 @@ const Sidebar = () => {
                     </a>
                     <a
                       className="flex items-center ml-10 px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
-                      href={paths.MOD_MANAGE}
+                      href={paths.MOD_MANAGE_BANNED}
                     >
-                      Disabled Mods{' '}
+                      Banned Mods{' '}
                     </a>
                   </div>
                 )}
@@ -367,4 +367,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default React.memo(Sidebar);

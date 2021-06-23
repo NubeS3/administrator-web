@@ -4,8 +4,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        mercury: '#e9e9e9'
-      }
+        mercury: '#e9e9e9',
+        lockmara: '#0078D4'
+      },
+      backgroundImage: (theme) => ({
+        'nav-pattern': "url('/src/assets/nav-bar.png')"
+      })
     }
   },
   variants: {
