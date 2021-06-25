@@ -1,6 +1,16 @@
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import store from '../../../../store';
+import { getSystemErrorLogs } from '../../../../store/report';
 
-const ErrorLog = ({ errLogs }) => {
+const ErrorLog = ({ errLogs, authToken }) => {
+  useEffect(() => {
+    store.dispatch(
+      getSystemErrorLogs({ authToken: authToken, limit: 50, offset: 0 })
+    );
+    return () => {};
+  }, []);
+
   return (
     <>
       <header className="w-full h-16 flex items-center justify-between">
@@ -12,7 +22,7 @@ const ErrorLog = ({ errLogs }) => {
           </div>
         </div>
       </header>
-      <div className="flex flex-col w-full mx-auto">
+      <div className="container px-5">
         <table className="w-full table-collapse">
           <thead>
             <tr>
@@ -31,13 +41,13 @@ const ErrorLog = ({ errLogs }) => {
               <th className="text-sm uppercase font-semibold text-grey-darker p-3 bg-gray-200"></th>
             </tr>
           </thead>
-          <tbody className="align-baseline">
+          <tbody className="align-baseline overflow-y-scroll w-full">
             {errLogs?.map((item, index) => {
               return (
                 <tr className="group cursor-pointer hover:bg-gray-100">
                   <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap">
                     <div className="inline-block mr-12">
-                      <p className="text-lg">{index}</p>
+                      <p className="text-lg">{index + 1}</p>
                     </div>
                     {/* <DropdownMenu></DropdownMenu> */}
                   </td>
@@ -65,7 +75,7 @@ const ErrorLog = ({ errLogs }) => {
 
 const mapStateToProps = (state) => {
   const errLogs = state.report.errLogs;
-  console.log(errLogs);
-  return { errLogs };
+  const authToken = state.authen.authToken;
+  return { errLogs, authToken };
 };
 export default connect(mapStateToProps)(ErrorLog);

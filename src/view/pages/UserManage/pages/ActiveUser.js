@@ -14,7 +14,7 @@ const ActiveUser = ({ authToken, userList }) => {
   const [selected, setSelected] = useState([]);
 
   useEffect(() => {
-    store.dispatch(getUserList({ authToken: authToken, limit: 10, offset: 0 }));
+    store.dispatch(getUserList({ authToken: authToken, limit: 20, offset: 0 }));
     return () => {};
   }, []);
 

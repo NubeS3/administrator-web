@@ -7,7 +7,8 @@ const initialState = {
   done: false,
   err: null,
   errLogs: [],
-  newUser: {},
+  reqLogCount: [],
+  userBandwidth: [],
   message: '',
   isFulfilled: false,
   isRejected: false
@@ -20,6 +21,26 @@ export const getSystemErrorLogs = createAsyncThunk(
       api.dispatch(reportSlice.actions.loading());
       const response = await axios.get(
         endpoints.GET_ERROR_LOG + `?limit=${data.limit}&offset=${data.offset}`,
+        {
+          headers: {
+            Authorization: `Bearer ${data.authToken}`
+          }
+        }
+      );
+      return response.data;
+    } catch (err) {
+      return api.rejectWithValue(err.response.data.error);
+    }
+  }
+);
+
+export const getUserTotalBandwidth = createAsyncThunk(
+  'report/getUserTotalBandwidth',
+  async (data, api) => {
+    try {
+      api.dispatch(reportSlice.actions.loading());
+      const response = await axios.get(
+        endpoints.GET_ERROR_LOG + `?from=${data.from}&to=${data.to}`,
         {
           headers: {
             Authorization: `Bearer ${data.authToken}`
@@ -52,6 +73,15 @@ export const reportSlice = createSlice({
       state.err = null;
     },
     [getSystemErrorLogs.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.err = action.payload;
+    },
+    [getUserTotalBandwidth.fulfilled]: (state, action) => {
+      state.errLogs = action.payload;
+      state.done = true;
+      state.err = null;
+    },
+    [getUserTotalBandwidth.rejected]: (state, action) => {
       state.isLoading = false;
       state.err = action.payload;
     }

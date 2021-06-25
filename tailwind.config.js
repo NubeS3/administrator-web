@@ -8,7 +8,8 @@ module.exports = {
         lockmara: '#0078D4'
       },
       backgroundImage: (theme) => ({
-        'nav-pattern': "url('/src/assets/nav-bar.png')"
+        'nav-pattern': "url('/src/assets/nav-bar.png')",
+        login: "url('/src/assets/login-bg.jpg')"
       })
     }
   },
