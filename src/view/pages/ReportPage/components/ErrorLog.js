@@ -26,19 +26,18 @@ const ErrorLog = ({ errLogs, authToken }) => {
         <table className="w-full table-collapse">
           <thead>
             <tr>
-              <th className="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-gray-200">
+              <th className="w-2 text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-gray-200">
                 #
               </th>
               <th className="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-gray-200">
                 Type
               </th>
-              <th className="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-gray-200">
-                At
+              <th className="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-gray-200 ">
+                Error
               </th>
-              <th className="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-gray-200 text-center">
-                Content
+              <th className="text-sm text-center uppercase font-semibold text-grey-darker p-3 bg-gray-200">
+                Date
               </th>
-              <th className="text-sm uppercase font-semibold text-grey-darker p-3 bg-gray-200"></th>
             </tr>
           </thead>
           <tbody className="align-baseline overflow-y-scroll w-full">
@@ -54,15 +53,14 @@ const ErrorLog = ({ errLogs, authToken }) => {
                   <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap">
                     <p className="text-md">{item?.type}</p>
                   </td>
-                  <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap">
-                    <p className="text-md">
-                      {item.at ? new Date(item.at).toISOString() : null}
-                    </p>
-                  </td>
                   <td className="text-sm p-3 border-t border-grey-light whitespace-no-wrap ">
                     {item?.content}
                   </td>
-                  <td></td>
+                  <td className="text-sm text-center p-3 border-t border-grey-light whitespace-no-wrap">
+                    <p className="text-md">
+                      {item.at ? new Date(item.at).toDateString() : null}
+                    </p>
+                  </td>
                 </tr>
               );
             })}
