@@ -6,6 +6,8 @@ const initialState = {
   done: false,
   err: null,
   userList: [],
+  bannedUserList: [],
+  newUser: {},
   message: '',
   isFulfilled: false,
   isRejected: false
@@ -87,31 +89,53 @@ export const userManageSlice = createSlice({
     loading: (state) => {
       state.isLoading = true;
     },
-    clearState: (state) => {
+    clearUserState: (state) => {
       state.isRejected = false;
       state.isFulfilled = false;
     }
   },
   extraReducers: {
     [getUserList.fulfilled]: (state, action) => {
-      state.isFulfilled = true;
-      state.userList = action.payload;
-      state = { ...state, isLoading: false };
+      state.userList = action.payload.filter(
+        (user) => user.is_banned === false
+      );
+      state.bannedUserList = action.payload.filter(
+        (user) => user.is_banned === true
+      );
+
       state.done = true;
       state.err = null;
     },
     [getUserList.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.err = action.payload;
+    },
+
+    [addUser.fulfilled]: (state, action) => {
+      state.isFulfilled = true;
+      state.isLoading = false;
+      state.userList = [...state.userList, action.payload];
+      state.newUser = action.payload;
+    },
+    [addUser.rejected]: (state, action) => {
       state.isRejected = true;
       state.isLoading = false;
       state.err = action.payload;
     },
 
-    [disableUser.fulfilled]: (state) => {
+    [disableUser.fulfilled]: (state, action) => {
+      state.isFulfilled = true;
+      state.userList = state.userList.filter(
+        (user) => user.id !== action.payload.id
+      );
       state.isLoading = false;
     },
     [disableUser.rejected]: (state, action) => {
+      state.isRejected = true;
       state.isLoading = false;
       state.err = action.payload;
     }
   }
 });
+
+export const { clearUserState } = userManageSlice.actions;

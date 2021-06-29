@@ -29,7 +29,7 @@ const Sidebar = () => {
           </button>
         </div>
       )}
-      <div className="absolute top-1 left-0 z-20">
+      <div className="absolute left-0 z-20">
         <Transition
           show={!isClosed}
           enter="transition-all duration-300"
@@ -42,9 +42,9 @@ const Sidebar = () => {
 
           <aside
             aria-hidden={isClosed}
-            className="bg-white w-64 min-h-screen flex flex-col"
+            className="bg-mercury w-64 min-h-screen flex flex-col"
           >
-            <div className="bg-white px-3 h-10 flex items-center justify-between border-r-2">
+            <div className="bg-mercury px-3 h-10 flex items-center justify-between border-r-2">
               <button
                 tabIndex="1"
                 className="w-10 p-1"
@@ -93,7 +93,10 @@ const Sidebar = () => {
 
             <div className="flex flex-col justify-between flex-1 border-r-2">
               <nav>
-                <button className="flex items-center px-4 py-2 w-full text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200">
+                <button
+                  onClick={() => (window.location.href = paths.HOME)}
+                  className="flex items-center px-4 py-2 w-full text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
@@ -113,7 +116,6 @@ const Sidebar = () => {
                 </button>
                 <button
                   className="flex items-center justify-between px-4 py-2 mt-5 w-full text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700"
-                  href={paths.HOME}
                   onClick={() => setHiddenUser(!isHiddenUser)}
                 >
                   <div className="flex items-center">
@@ -184,9 +186,9 @@ const Sidebar = () => {
                     </a>
                     <a
                       className="flex items-center ml-10 px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
-                      href={paths.USER_MANAGE}
+                      href={paths.USER_MANAGE_BANNED}
                     >
-                      Disable Users{' '}
+                      Banned Users{' '}
                     </a>
                   </div>
                 )}
@@ -255,9 +257,9 @@ const Sidebar = () => {
                     </a>
                     <a
                       className="flex items-center ml-10 px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
-                      href={paths.MOD_MANAGE}
+                      href={paths.MOD_MANAGE_BANNED}
                     >
-                      Disabled Mods{' '}
+                      Banned Mods{' '}
                     </a>
                   </div>
                 )}
@@ -320,15 +322,15 @@ const Sidebar = () => {
                   <div>
                     <a
                       className="flex items-center ml-10 px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
-                      href={paths.USER_MANAGE}
+                      href={paths.REPORT}
                     >
                       Usage{' '}
                     </a>
                     <a
                       className="flex items-center ml-10 px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
-                      href="#"
+                      href={paths.REPORT_ERROR}
                     >
-                      Activity{' '}
+                      Error Log{' '}
                     </a>
                   </div>
                 )}
@@ -365,4 +367,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default React.memo(Sidebar);

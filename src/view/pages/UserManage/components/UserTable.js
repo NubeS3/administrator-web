@@ -1,11 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import DropdownMenu from '../../../../components/DropdownMenu/DropdownMenu';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 
-const UserTable = ({ items, setBanUserState, authToken }) => {
-  const [selected, setSelected] = React.useState([]);
-
+const UserTable = ({
+  items,
+  setBanUserState,
+  authToken,
+  selected,
+  setSelected
+}) => {
   const findWithProperty = (arr, prop, value) => {
     for (var i = 0; i < arr.length; i += 1) {
       if (arr[i][prop] === value) {

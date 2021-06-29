@@ -1,9 +1,5 @@
 import React from 'react';
-import DropdownMenu from '../../../../components/DropdownMenu/DropdownMenu';
-
-const ModTable = ({ items, setBanModState, authToken }) => {
-  const [selected, setSelected] = React.useState([]);
-
+const ModTable = ({ items, selected, setSelected }) => {
   const findWithProperty = (arr, prop, value) => {
     for (var i = 0; i < arr.length; i += 1) {
       if (arr[i][prop] === value) {
@@ -26,7 +22,7 @@ const ModTable = ({ items, setBanModState, authToken }) => {
 
   const handleItemCheckboxClick = (e, fileItem) => {
     const selectedIndex = findWithProperty(selected, 'id', fileItem.id);
-
+    console.log(fileItem);
     let newSelected = [];
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, fileItem);

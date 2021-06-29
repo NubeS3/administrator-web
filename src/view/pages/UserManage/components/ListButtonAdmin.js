@@ -1,13 +1,13 @@
-const AddUserButton = ({ setOpenCreateUser }) => {
+const AddUserButton = ({ onClick }) => {
   return (
     <button
       type="button"
       class="flex pl-2 py-2 px-4 bg-white text-black transition ease-in duration-200 hover:bg-gray-100 text-center text-base focus:outline-none rounded-sm"
-      onClick={setOpenCreateUser}
+      onClick={onClick}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-6 mr-1"
+        className="h-5 w-6 mr-1 text-lockmara"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -32,7 +32,7 @@ const UserTemplateButton = () => {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-6 mr-1"
+        className="h-5 w-6 mr-1 text-lockmara"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -57,7 +57,7 @@ const AddMultipleUserButton = () => {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-6 mr-1"
+        className="h-5 w-6 mr-1 text-lockmara"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -82,7 +82,7 @@ const MultiFactorAuthenticateButton = () => {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-6 mr-1"
+        className="h-5 w-6 mr-1 text-lockmara"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -99,15 +99,21 @@ const MultiFactorAuthenticateButton = () => {
   );
 };
 
-const DeleteUserButton = () => {
+const DeleteUserButton = ({ label, onClick, selected }) => {
   return (
     <button
       type="button"
-      class="flex pl-2 py-2 px-4 bg-white text-black transition ease-in duration-200 hover:bg-gray-100 text-center text-base focus:outline-none rounded-sm"
+      onClick={onClick}
+      disabled={!!(selected?.length > 1)}
+      className={
+        selected?.length > 1
+          ? 'flex pl-2 py-2 px-4 bg-white text-gray-300 transition ease-in duration-200 hover:bg-gray-100 text-center text-base focus:outline-none rounded-sm cursor-not-allowed'
+          : 'flex pl-2 py-2 px-4 bg-white text-black transition ease-in duration-200 hover:bg-gray-100 text-center text-base focus:outline-none rounded-sm'
+      }
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-6 mr-1"
+        className="h-5 w-6 mr-1 text-lockmara"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -119,7 +125,7 @@ const DeleteUserButton = () => {
           d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6"
         />
       </svg>
-      Delete a user
+      {label}
     </button>
   );
 };
@@ -132,7 +138,7 @@ const RefreshButton = () => {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-6 mr-1"
+        className="h-5 w-6 mr-1 text-lockmara"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -157,7 +163,7 @@ const ResetPasswordButton = () => {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-6 mr-1"
+        className="h-5 w-6 mr-1 text-lockmara"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -182,7 +188,7 @@ const ExportUserButton = () => {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-6 mr-1"
+        className="h-5 w-6 mr-1 text-lockmara"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -199,19 +205,24 @@ const ExportUserButton = () => {
   );
 };
 
-const ListButtonAdmin = ({ setOpenCreateUser }) => {
+const ListButtonAdmin = ({ onAddUserClick, onBanUserClick, selected }) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col align-start mb-2">
       <div className="flex flex-row flex-1">
-        <AddUserButton setOpenCreateUser={setOpenCreateUser} />
-        <AddMultipleUserButton />
-        <DeleteUserButton />
+        <AddUserButton onClick={onAddUserClick} />
+        {/* <AddMultipleUserButton /> */}
+        {selected?.length > 0 ? (
+          <DeleteUserButton
+            label={'Ban user'}
+            onClick={onBanUserClick}
+            selected={selected}
+          />
+        ) : (
+          <DeleteUserButton label={'Ban a user'} />
+        )}
         <RefreshButton />
         <ResetPasswordButton />
         <ExportUserButton />
-      </div>
-      <div className="flex flex-row self-end">
-        <p>Filter</p>
       </div>
     </div>
   );

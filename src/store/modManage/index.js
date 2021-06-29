@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, isRejected } from '@reduxjs/toolkit';
 import endpoints from '../../configs/endpoints';
 
 const initialState = {
@@ -7,6 +7,8 @@ const initialState = {
   done: false,
   err: null,
   modList: [],
+  bannedModList: [],
+  newMod: {},
   isFulfilled: false,
   isRejected: false,
   message: ''
@@ -62,10 +64,11 @@ export const disableMod = createAsyncThunk(
   async (data, api) => {
     try {
       api.dispatch(modManageSlice.actions.loading(true));
-      const response = await axios.post(
+      const response = await axios.patch(
         endpoints.BAN_MOD,
         {
-          username: data.username
+          username: data.username,
+          disable: true
         },
         {
           headers: {
@@ -87,15 +90,18 @@ export const modManageSlice = createSlice({
     loading: (state, action) => {
       state = { ...state, isLoading: action.payload };
     },
-    clearState: (state) => {
+    clearModState: (state) => {
       state.isRejected = false;
       state.isFulfilled = false;
     }
   },
   extraReducers: {
     [getModList.fulfilled]: (state, action) => {
-      state.modList = action.payload;
-      state = { ...state, isLoading: false };
+      state.modList = action.payload.filter((mod) => mod.is_disabled === false);
+      state.bannedModList = action.payload.filter(
+        (mod) => mod.is_disabled === true
+      );
+
       state.done = true;
       state.err = null;
     },
@@ -104,21 +110,30 @@ export const modManageSlice = createSlice({
       state.err = action.payload;
     },
 
-    [addMod.fulfilled]: (state) => {
+    [addMod.fulfilled]: (state, action) => {
+      state.isFulfilled = true;
       state.isLoading = false;
-      // state.modList = [...state.modList, ...action.payload]
+      state.modList = [...state.modList, action.payload];
+      state.newMod = {};
     },
     [addMod.rejected]: (state, action) => {
+      state.isRejected = true;
       state.isLoading = false;
       state.err = action.payload;
     },
-    [disableMod.fulfilled]: (state) => {
+    [disableMod.fulfilled]: (state, action) => {
+      state.isFulfilled = true;
+      state.modList = state.modList.filter(
+        (mod) => mod.id !== action.payload.id
+      );
       state.isLoading = false;
-      // state.modList = [...state.modList, ...action.payload]
     },
     [disableMod.rejected]: (state, action) => {
+      state.isRejected = true;
       state.isLoading = false;
       state.err = action.payload;
     }
   }
 });
+
+export const { clearModState } = modManageSlice.actions;

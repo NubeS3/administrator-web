@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AddUserSuccess = ({ type, newUser, onClose }) => {
+const AddModSuccess = () => {
   return (
     <div className="w-full">
       <div>
@@ -20,43 +20,29 @@ const AddUserSuccess = ({ type, newUser, onClose }) => {
             />
           </svg>
           <p className="font-bold text-2xl inline ml-3">
-            {type === 'user'
-              ? 'User added to active users'
-              : 'Mod added to active moderators'}
+            Mod added to active mods
           </p>
         </div>
 
         <p className="text-sm px-12 text-gray-400">
-          {type === 'user'
-            ? 'User will now appear in your user list'
-            : 'Mod will now appear in your moderator list'}
+          Mod will now appear in your mod list
         </p>
         <div className="px-12 py-12">
-          <p className="font-bold text-sm mb-3">User Details</p>
+          <p className="font-bold text-sm mb-3">Moderator Details</p>
           <p>
-            ID number: <span>{newUser?.id}</span>
+            Display name: <span>Mod</span>
           </p>
-          {type === 'user' ? (
-            <p>
-              Email: <span>{newUser?.email}</span>
-            </p>
-          ) : (
-            <p>
-              Username: <span>{newUser?.username}</span>
-            </p>
-          )}
-
-          {/* <p>
+          <p>
+            Username: <span>nguyenvana@gmail.com</span>
+          </p>
+          <p>
             Password: <span>asdfjlkasdf</span>
-          </p> */}
+          </p>
         </div>
         <hr />
         <div className="px-12">
           <div className="mt-6">
-            <button
-              onClick={onClose}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               Close
             </button>
           </div>
@@ -66,4 +52,4 @@ const AddUserSuccess = ({ type, newUser, onClose }) => {
   );
 };
 
-export default AddUserSuccess;
+export default AddModSuccess;

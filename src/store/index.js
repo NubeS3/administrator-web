@@ -7,6 +7,7 @@ import {
 import { modManageSlice } from './modManage';
 import { userManageSlice } from './userManage';
 import { adminAuthenSlice } from './authen';
+import { reportSlice } from './report';
 // const rootPersistConfig = {
 //   key: 'root',
 //   storage
@@ -15,7 +16,8 @@ import { adminAuthenSlice } from './authen';
 const persistedReducer = combineReducers({
   authen: adminAuthenSlice.reducer,
   modManage: modManageSlice.reducer,
-  userManage: userManageSlice.reducer
+  userManage: userManageSlice.reducer,
+  report: reportSlice.reducer
 });
 
 // const persistedReducer = persistReducer(rootPersistConfig, reducers);

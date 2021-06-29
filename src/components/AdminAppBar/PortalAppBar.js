@@ -1,11 +1,22 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import paths from '../../configs/paths';
+import store from '../../store';
+import { clearAuthentication } from '../../store/authen';
 
 const PortalAppBar = () => {
+  const history = useHistory();
+
+  const handleSignOut = () => {
+    store.dispatch(clearAuthentication());
+    history.push(paths.BASE);
+  };
+
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-white py-4 lg:px-12 shadow border-solid border-t-2 border-blue-700 z-30">
+    <nav className="bg-nav-pattern flex items-center justify-between flex-wrap bg-white py-4 lg:px-12 shadow border-solid border-t-2 border-blue-700 z-30">
       <div className="flex justify-between lg:w-auto w-full lg:border-b-0 pl-6 pr-2 border-solid border-b-2 border-gray-300 pb-5 lg:pb-0">
         <div className="flex items-center flex-shrink-0 text-gray-800 mr-16">
-          <span className="font-semibold text-xl tracking-tight">
+          <span className="font-semibold text-xl text-white tracking-tight">
             NubeS3 Admin
           </span>
         </div>
@@ -29,12 +40,12 @@ const PortalAppBar = () => {
       <div className="menu w-full lg:block flex-grow lg:flex lg:items-center lg:w-auto lg:px-3 px-8">
         <div className="relative mx-auto text-gray-600 lg:block hidden w-1/2">
           <input
-            className="w-full border-2 border-gray-300 bg-white h-10 pl-2 pr-8 rounded-lg text-sm focus:outline-none"
+            className="w-full border-gray-300 bg-white h-9 pl-10 pr-5 text-sm focus:outline-none"
             type="search"
             name="search"
             placeholder="Search"
           />
-          <button type="submit" className="absolute right-0 top-0 mt-3 mr-2">
+          <button type="submit" className="absolute left-4 top-0 mt-3 mr-2">
             <svg
               className="text-gray-600 h-4 w-4 fill-current"
               xmlns="http://www.w3.org/2000/svg"
@@ -51,12 +62,12 @@ const PortalAppBar = () => {
           </button>
         </div>
         <div className="flex ">
-          <a
-            href="#"
-            className="block text-md px-4 py-2 rounded text-blue-700 ml-2 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0"
+          <button
+            onClick={handleSignOut}
+            className="block text-md px-4 py-2 rounded text-white ml-2 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0"
           >
             Sign out
-          </a>
+          </button>
         </div>
       </div>
     </nav>
