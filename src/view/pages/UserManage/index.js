@@ -30,9 +30,15 @@ const UserManage = ({ authToken, userList, isRejected, isFulfilled }) => {
     }
   }, [isFulfilled, isRejected]);
 
-  const onBanUser = () => {
-    setBanUserState(!banUserState);
+  const openBanUserDrawer = () => {
+    setBanUserState(true);
   };
+
+  const openAddUserDrawer = () => {
+    setOpenCreateUser(true);
+  };
+
+  const onBanUser = () => {};
 
   return (
     <PortalFrame>
@@ -65,11 +71,11 @@ const UserManage = ({ authToken, userList, isRejected, isFulfilled }) => {
               )}
             </SideDrawerN>
           )}
-          <ListButtonAdmin />
+          <ListButtonAdmin setOpenCreateUser={openAddUserDrawer} />
           <UserTable
             authToken={authToken}
             items={userList}
-            setBanUserState={onBanUser}
+            setBanUserState={openBanUserDrawer}
           />
         </div>
       </div>
