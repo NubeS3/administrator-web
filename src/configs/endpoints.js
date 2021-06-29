@@ -10,7 +10,9 @@ const endpoints = {
   ADD_USER: `${BASE}/admin/auth/user`,
   BAN_USER: `${BASE}/admin/auth/ban-user`,
   BAN_MOD: `${BASE}/admin/auth/disable-mod`,
-  GET_ERROR_LOG: `${BASE}/admin/auth/err-log`
+  GET_ERROR_LOG: `${BASE}/admin/auth/err-log`,
+  GET_SYSTEM_BANDWIDTH: `${BASE}/admin/auth/bandwidth-report/system`,
+  GET_SYSTEM_REQ_COUNT: `${BASE}/admin/auth/req-log/count/system`
 };
 
 export default endpoints;
