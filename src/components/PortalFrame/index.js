@@ -13,7 +13,7 @@ const PortalFrame = (props) => {
           </div>
           <div className="flex flex-col w-full md:space-y-4">
             <header className="w-full flex items-center justify-between">
-              <div className="block lg:hidden ml-6">
+              {/* <div className="block lg:hidden ml-6">
                 <button className="flex p-2 items-center rounded-full bg-white shadow text-gray-500 text-md">
                   <svg
                     width="20"
@@ -26,7 +26,7 @@ const PortalFrame = (props) => {
                     <path d="M1664 1344v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45z"></path>
                   </svg>
                 </button>
-              </div>
+              </div> */}
               <div className="relative flex flex-col justify-end h-full px-3 mt-2 md:w-full"></div>
             </header>
             <div className="ml-10" {...props}>

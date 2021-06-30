@@ -8,7 +8,7 @@ const UserManage = () => {
   const match = useRouteMatch();
 
   const openAddUserDrawer = () => {
-    setOpenCreateUser(true);
+    // setOpenCreateUser(true);
   };
 
   const onBanUser = () => {};
