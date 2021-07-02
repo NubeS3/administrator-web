@@ -5,6 +5,8 @@ const endpoints = {
 
   LOGIN_ADMIN: `${BASE}/admin/signin`,
   GET_ALL_USER: `${BASE}/admin/auth/users-list`,
+  GET_NO_BAN_USER: `${BASE}/admin/auth/users-list/no-ban`,
+  GET_BANNED_USER: `${BASE}/admin/auth/users-list/banned`,
   GET_ALL_ADMIN: `${BASE}/admin/auth/admins-list`,
   ADD_MOD: `${BASE}/admin/auth/mod`,
   ADD_USER: `${BASE}/admin/auth/user`,

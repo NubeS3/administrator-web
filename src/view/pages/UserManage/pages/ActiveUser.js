@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import CreateUser from '../../../../components/CreateUser/CreateUser';
 import SideDrawer from '../../../../components/SideDrawer/SideDrawer';
 import store from '../../../../store';
-import { getUserList } from '../../../../store/userManage';
+import { getUserList, getNoBanUserList } from '../../../../store/userManage';
 import ListButtonAdmin from '../components/ListButtonAdmin';
 import UserTable from '../components/UserTable';
 import BanUser from '../../../../components/DeleteUserSideDrawer/BanUser';
@@ -14,7 +14,10 @@ const ActiveUser = ({ authToken, userList }) => {
   const [selected, setSelected] = useState([]);
 
   useEffect(() => {
-    store.dispatch(getUserList({ authToken: authToken, limit: 20, offset: 0 }));
+    store.dispatch(
+      getUserList({ authToken: authToken, limit: 10, offset: 0 })
+      // getNoBanUserList({ authToken: authToken, limit: 10, offset: 0 })
+    );
     return () => {};
   }, []);
 
@@ -81,6 +84,7 @@ const ActiveUser = ({ authToken, userList }) => {
 const mapStateToProps = (state) => {
   const authToken = state.authen.authToken;
   const userList = state.userManage.userList;
+  // const userList = state.userManage.noBanUserList;
   return { authToken, userList };
 };
 

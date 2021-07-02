@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import store from '../../../../store';
-import { getUserList } from '../../../../store/userManage';
+import { getUserList, getNoBanUserList } from '../../../../store/userManage';
 
 const UserTable = ({
   items,
@@ -10,8 +10,16 @@ const UserTable = ({
   selected,
   setSelected
 }) => {
-  const LIMIT = 20;
+  const LIMIT = 10;
   const [offset, setOffset] = React.useState(0);
+
+  const getList = () => {
+    if (items[offset]) return;
+    store.dispatch(
+      getUserList({ authToken: authToken, limit: LIMIT, offset: offset })
+      // getNoBanUserList({ authToken: authToken, limit: LIMIT, offset: offset })
+    );
+  };
 
   const onPreviousPage = () => {
     if (offset <= 0) return;
@@ -19,13 +27,9 @@ const UserTable = ({
   };
 
   const onNextPage = () => {
-    if (items?.slice(offset, LIMIT).length == LIMIT) {
-      setOffset(offset + LIMIT);
-      if (!items[offset])
-        store.dispatch(
-          getUserList({ authToken: authToken, limit: LIMIT, offset: offset })
-        );
-    }
+    if (items?.length < LIMIT) return;
+    setOffset(offset + LIMIT);
+    getList();
   };
 
   const findWithProperty = (arr, prop, value) => {
@@ -105,7 +109,10 @@ const UserTable = ({
             const isItemSelected = isSelected(item.id);
             const labelId = `enhanced-table-checkbox-${item.id}`;
             return (
-              <tr className="group cursor-pointer hover:bg-gray-100">
+              <tr
+                className="group cursor-pointer hover:bg-gray-100"
+                key={item.id}
+              >
                 <td className="p-3 ">
                   <input
                     aria-labelledby={labelId}
