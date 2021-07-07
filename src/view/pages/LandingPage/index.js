@@ -27,13 +27,13 @@ const Landing = (props) => {
           </div>
           <div className="container relative mx-auto">
             <div className="items-center flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+              <div className="w-full lg:w-7/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="font-light w-full uppercase text-center text-4xl sm:text-5xl dark:text-white text-white">
                     Welcome to Nubes3 Admin Center
                   </h1>
                   <h2 className="font-light max-w-3xl mx-auto w-full text-xl dark:text-white text-white text-center py-8">
-                    Manage system users and moderators
+                    Manage Nubes3 system users and moderators
                   </h2>
                   <div className="flex items-center justify-center mt-4">
                     <a
