@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import CreateUser from '../../../../components/CreateUser/CreateUser';
 import SideDrawer from '../../../../components/SideDrawer/SideDrawer';
 import store from '../../../../store';
-import { getUserList } from '../../../../store/userManage';
+import { getUserList, getBannedUserList } from '../../../../store/userManage';
 import ListButtonAdmin from '../components/ListButtonAdmin';
 import UserTable from '../components/UserTable';
 import BanUser from '../../../../components/DeleteUserSideDrawer/BanUser';
@@ -14,7 +14,10 @@ const BannedUser = ({ authToken, bannedUserList, isRejected, isFulfilled }) => {
   const [selected, setSelected] = useState([]);
 
   useEffect(() => {
-    store.dispatch(getUserList({ authToken: authToken, limit: 20, offset: 0 }));
+    // store.dispatch(
+    //   getBannedUserList({ authToken: authToken, limit: 10, offset: 0 })
+    // );
+    console.log(bannedUserList);
     return () => {};
   }, []);
 

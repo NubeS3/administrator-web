@@ -13,23 +13,22 @@ const UserTable = ({
   const LIMIT = 10;
   const [offset, setOffset] = React.useState(0);
 
-  const getList = () => {
-    if (items[offset]) return;
+  React.useState(() => {
     store.dispatch(
-      getUserList({ authToken: authToken, limit: LIMIT, offset: offset })
-      // getNoBanUserList({ authToken: authToken, limit: LIMIT, offset: offset })
+      getNoBanUserList({ authToken: authToken, limit: LIMIT, offset: offset })
     );
-  };
+  }, [offset]);
 
   const onPreviousPage = () => {
+    console.log(offset);
     if (offset <= 0) return;
     setOffset(offset - LIMIT);
   };
 
   const onNextPage = () => {
-    if (items?.length < LIMIT) return;
+    console.log(offset);
+    if (offset > items?.length) return;
     setOffset(offset + LIMIT);
-    getList();
   };
 
   const findWithProperty = (arr, prop, value) => {
@@ -105,7 +104,7 @@ const UserTable = ({
           </tr>
         </thead>
         <tbody className="align-baseline">
-          {items?.slice(offset, LIMIT).map((item, index) => {
+          {items?.map((item, index) => {
             const isItemSelected = isSelected(item.id);
             const labelId = `enhanced-table-checkbox-${item.id}`;
             return (

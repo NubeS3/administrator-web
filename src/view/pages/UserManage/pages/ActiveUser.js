@@ -8,17 +8,16 @@ import ListButtonAdmin from '../components/ListButtonAdmin';
 import UserTable from '../components/UserTable';
 import BanUser from '../../../../components/DeleteUserSideDrawer/BanUser';
 
-const ActiveUser = ({ authToken, userList }) => {
+const ActiveUser = ({ authToken, noBanUserList }) => {
   const [openCreateUser, setOpenCreateUser] = useState(false);
   const [openBanUser, setOpenBanUser] = useState(false);
   const [selected, setSelected] = useState([]);
 
   useEffect(() => {
     store.dispatch(
-      getUserList({ authToken: authToken, limit: 10, offset: 0 })
-      // getNoBanUserList({ authToken: authToken, limit: 10, offset: 0 })
+      getNoBanUserList({ authToken: authToken, limit: 10, offset: 0 })
     );
-    return () => {};
+    console.log(noBanUserList);
   }, []);
 
   const onAddUserClick = () => {
@@ -72,7 +71,7 @@ const ActiveUser = ({ authToken, userList }) => {
         />
         <UserTable
           authToken={authToken}
-          items={userList}
+          items={noBanUserList}
           selected={selected}
           setSelected={setSelected}
         />
@@ -83,9 +82,8 @@ const ActiveUser = ({ authToken, userList }) => {
 
 const mapStateToProps = (state) => {
   const authToken = state.authen.authToken;
-  const userList = state.userManage.userList;
-  // const userList = state.userManage.noBanUserList;
-  return { authToken, userList };
+  const noBanUserList = state.userManage.noBanUserList;
+  return { authToken, noBanUserList };
 };
 
 export default connect(mapStateToProps)(ActiveUser);
