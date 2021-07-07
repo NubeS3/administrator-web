@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import paths from '../../configs/paths';
+import logoNubes3 from '../../assets/logo.png';
 
 const GeneralAppBar = (props) => {
   useEffect(() => {
@@ -13,12 +14,14 @@ const GeneralAppBar = (props) => {
       <div className="max-w-7xl mx-auto px-8">
         <div className="flex items-center justify-between h-16">
           <div className="w-full justify-between flex items-center">
-            <a className="flex-shrink-0" href="/">
-              <img
-                className="h-8 w-8"
-                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                alt="Workflow"
-              />
+            <a
+              className="flex flex-shrink-0 flex-row items-center justify-center"
+              href="/"
+            >
+              <img className="h-12 w-12" src={logoNubes3} alt="Workflow" />
+              <h1 className="ml-2 text-center text-xl font-bold text-blue-900">
+                NubeS3 Admin
+              </h1>
             </a>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
