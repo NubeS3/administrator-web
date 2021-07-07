@@ -6,6 +6,7 @@ const initialState = {
   done: false,
   err: null,
   userList: [],
+  noBanUserList: [],
   bannedUserList: [],
   newUser: {},
   message: '',
@@ -26,7 +27,48 @@ export const getUserList = createAsyncThunk(
           }
         }
       );
-      console.log(response.data);
+      return response.data;
+    } catch (err) {
+      return api.rejectWithValue(err.response.data.error);
+    }
+  }
+);
+
+export const getNoBanUserList = createAsyncThunk(
+  'adminManage/getNoBanUserList',
+  async (data, api) => {
+    try {
+      api.dispatch(userManageSlice.actions.loading());
+      const response = await axios.get(
+        endpoints.GET_NO_BAN_USER +
+          `?limit=${data.limit}&offset=${data.offset}`,
+        {
+          headers: {
+            Authorization: `Bearer ${data.authToken}`
+          }
+        }
+      );
+      return response.data;
+    } catch (err) {
+      return api.rejectWithValue(err.response.data.error);
+    }
+  }
+);
+
+export const getBannedUserList = createAsyncThunk(
+  'adminManage/getBannedUserList',
+  async (data, api) => {
+    try {
+      api.dispatch(userManageSlice.actions.loading());
+      const response = await axios.get(
+        endpoints.GET_BANNED_USER +
+          `?limit=${data.limit}&offset=${data.offset}`,
+        {
+          headers: {
+            Authorization: `Bearer ${data.authToken}`
+          }
+        }
+      );
       return response.data;
     } catch (err) {
       return api.rejectWithValue(err.response.data.error);
@@ -96,17 +138,32 @@ export const userManageSlice = createSlice({
   },
   extraReducers: {
     [getUserList.fulfilled]: (state, action) => {
-      state.userList = action.payload.filter(
-        (user) => user.is_banned === false
-      );
-      state.bannedUserList = action.payload.filter(
-        (user) => user.is_banned === true
-      );
+      state.userList = [...state.userList, ...action.payload];
 
       state.done = true;
       state.err = null;
     },
     [getUserList.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.err = action.payload;
+    },
+    [getNoBanUserList.fulfilled]: (state, action) => {
+      state.noBanUserList = [...state.noBanUserList, ...action.payload];
+
+      state.done = true;
+      state.err = null;
+    },
+    [getNoBanUserList.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.err = action.payload;
+    },
+    [getBannedUserList.fulfilled]: (state, action) => {
+      state.bannedUserList = [...state.bannedUserList, ...action.payload];
+
+      state.done = true;
+      state.err = null;
+    },
+    [getBannedUserList.rejected]: (state, action) => {
       state.isLoading = false;
       state.err = action.payload;
     },

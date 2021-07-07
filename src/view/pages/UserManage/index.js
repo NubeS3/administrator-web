@@ -7,6 +7,12 @@ import BannedUser from './pages/BannedUser';
 const UserManage = () => {
   const match = useRouteMatch();
 
+  const openAddUserDrawer = () => {
+    // setOpenCreateUser(true);
+  };
+
+  const onBanUser = () => {};
+
   return (
     <PortalFrame>
       <div className="h-screen lg:block relative w-full">
