@@ -1,33 +1,26 @@
 import React from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import store from '../../../../store';
-import { getUserList, getNoBanUserList } from '../../../../store/userManage';
+import { getNoBanUserList } from '../../../../store/userManage';
 
-const UserTable = ({
-  items,
-  setBanUserState,
-  authToken,
-  selected,
-  setSelected
-}) => {
+const UserTable = ({ items, authToken, selected, setSelected }) => {
   const LIMIT = 10;
   const [offset, setOffset] = React.useState(0);
 
-  React.useState(() => {
+  React.useEffect(() => {
+    if (offset < items?.length) return;
     store.dispatch(
       getNoBanUserList({ authToken: authToken, limit: LIMIT, offset: offset })
     );
   }, [offset]);
 
   const onPreviousPage = () => {
-    console.log(offset);
-    if (offset <= 0) return;
+    if (offset - LIMIT < 0) return;
     setOffset(offset - LIMIT);
   };
 
   const onNextPage = () => {
-    console.log(offset);
-    if (offset > items?.length) return;
+    if (offset + LIMIT > items?.length) return;
     setOffset(offset + LIMIT);
   };
 
@@ -104,7 +97,7 @@ const UserTable = ({
           </tr>
         </thead>
         <tbody className="align-baseline">
-          {items?.map((item, index) => {
+          {items?.slice(offset, LIMIT + offset).map((item) => {
             const isItemSelected = isSelected(item.id);
             const labelId = `enhanced-table-checkbox-${item.id}`;
             return (

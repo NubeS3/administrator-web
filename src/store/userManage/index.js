@@ -148,7 +148,10 @@ export const userManageSlice = createSlice({
       state.err = action.payload;
     },
     [getNoBanUserList.fulfilled]: (state, action) => {
-      state.noBanUserList = action.payload;
+      let newValues = [...state.noBanUserList, ...action.payload];
+      state.noBanUserList = newValues.filter(
+        (item, index, self) => self.findIndex((i) => i.id === item.id) === index
+      );
 
       state.done = true;
       state.err = null;

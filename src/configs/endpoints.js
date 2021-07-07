@@ -8,6 +8,8 @@ const endpoints = {
   GET_NO_BAN_USER: `${BASE}/admin/auth/users-list/no-ban`,
   GET_BANNED_USER: `${BASE}/admin/auth/users-list/banned`,
   GET_ALL_ADMIN: `${BASE}/admin/auth/admins-list`,
+  // GET_ALL_ADMIN: `${BASE}/admin/auth/admins-list/no-ban`,
+  // GET_ALL_ADMIN: `${BASE}/admin/auth/admins-list/banned`,
   ADD_MOD: `${BASE}/admin/auth/mod`,
   ADD_USER: `${BASE}/admin/auth/user`,
   BAN_USER: `${BASE}/admin/auth/ban-user`,
