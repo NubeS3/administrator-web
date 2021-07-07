@@ -7,31 +7,44 @@ const Landing = (props) => {
   return (
     <PageFrame>
       <div className="dark:bg-gray-800 bg-white relative overflow-hidden h-screen">
-        <div className="bg-white dark:bg-gray-800 flex relative z-20 items-center">
-          <div className="container mx-auto px-6 flex flex-col justify-between items-center relative py-8">
-            <div className="flex flex-col">
-              <h1 className="font-light w-full uppercase text-center text-4xl sm:text-5xl dark:text-white text-gray-800">
-                Welcome To Nubes3 Admin Center
-              </h1>
-              <h2 className="font-light max-w-2xl mx-auto w-full text-xl dark:text-white text-gray-500 text-center py-8">
-                Grow your business with easy to use object storage that doesn't
-                break your budget.
-              </h2>
-              <div className="flex items-center justify-center mt-4">
-                <a
-                  href={paths.LOGIN}
-                  className="uppercase py-2 px-4 bg-gray-800 border-2 border-transparent text-white text-md mr-4 hover:bg-gray-900"
-                >
-                  Sign in
-                </a>
+        <div
+          className="relative pt-15 pb-32 flex content-center items-center justify-center"
+          style={{
+            minHeight: '75vh'
+          }}
+        >
+          <div
+            className="absolute top-0 w-full h-full bg-center bg-cover"
+            style={{
+              backgroundImage:
+                "url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')"
+            }}
+          >
+            <span
+              id="blackOverlay"
+              className="w-full h-full absolute opacity-75 bg-black"
+            ></span>
+          </div>
+          <div className="container relative mx-auto">
+            <div className="items-center flex flex-wrap">
+              <div className="w-full lg:w-7/12 px-4 ml-auto mr-auto text-center">
+                <div className="pr-12">
+                  <h1 className="font-light w-full uppercase text-center text-4xl sm:text-5xl dark:text-white text-white">
+                    Welcome to Nubes3 Admin Center
+                  </h1>
+                  <h2 className="font-light max-w-3xl mx-auto w-full text-xl dark:text-white text-white text-center py-8">
+                    Manage Nubes3 system users and moderators
+                  </h2>
+                  <div className="flex items-center justify-center mt-4">
+                    <a
+                      href={paths.LOGIN}
+                      className="uppercase py-2 px-4 bg-blue-500 border-2 border-transparent text-white text-md mr-4 hover:bg-indigo-700"
+                    >
+                      Sign in
+                    </a>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="block w-full mx-auto mt-9 md:mt-7 relative">
-              <img
-                src="https://www.backblaze.com/pics/home-page-b2-cloud.png"
-                className="max-w-xs md:max-w-2xl m-auto"
-                alt="logo"
-              />
             </div>
           </div>
         </div>
