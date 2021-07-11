@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import CreateMod from '../../../../components/CreateUser/CreateMod';
 import SideDrawer from '../../../../components/SideDrawer/SideDrawer';
 import store from '../../../../store';
-import { getModList } from '../../../../store/modManage';
+import { getBannedModList } from '../../../../store/modManage';
 // import ListButtonAdmin from '../components/ListButtonAdmin';
 import ModTable from '../components/ModTable';
 import BanUser from '../../../../components/DeleteUserSideDrawer/BanUser';
@@ -15,7 +15,9 @@ const BannedMod = ({ authToken, bannedModList, isRejected, isFulfilled }) => {
   const [selected, setSelected] = useState([]);
 
   useEffect(() => {
-    store.dispatch(getModList({ authToken: authToken, limit: 10, offset: 0 }));
+    store.dispatch(
+      getBannedModList({ authToken: authToken, limit: 10, offset: 0 })
+    );
     return () => {};
   }, []);
 

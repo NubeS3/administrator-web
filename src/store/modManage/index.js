@@ -7,7 +7,7 @@ const initialState = {
   done: false,
   err: null,
   modList: [],
-  // noBanModList: [],
+  noBanModList: [],
   bannedModList: [],
   newMod: {},
   isFulfilled: false,
@@ -36,47 +36,47 @@ export const getModList = createAsyncThunk(
   }
 );
 
-// export const getNoBanModList = createAsyncThunk(
-//   'adminManage/getNoBanModList',
-//   async (data, api) => {
-//     try {
-//       api.dispatch(modManageSlice.actions.loading());
-//       const response = await axios.get(
-//         endpoints.GET_ALL_ADMIN + `?limit=${data.limit}&offset=${data.offset}`,
-//         {
-//           headers: {
-//             Authorization: `Bearer ${data.authToken}`
-//           }
-//         }
-//       );
+export const getNoBanModList = createAsyncThunk(
+  'adminManage/getNoBanModList',
+  async (data, api) => {
+    try {
+      api.dispatch(modManageSlice.actions.loading());
+      const response = await axios.get(
+        endpoints.GET_ALL_ADMIN + `?limit=${data.limit}&offset=${data.offset}`,
+        {
+          headers: {
+            Authorization: `Bearer ${data.authToken}`
+          }
+        }
+      );
 
-//       return response.data;
-//     } catch (err) {
-//       return api.rejectWithValue(err.response.data.error);
-//     }
-//   }
-// );
+      return response.data;
+    } catch (err) {
+      return api.rejectWithValue(err.response.data.error);
+    }
+  }
+);
 
-// export const getBannedModList = createAsyncThunk(
-//   'adminManage/getBannedModList',
-//   async (data, api) => {
-//     try {
-//       api.dispatch(modManageSlice.actions.loading());
-//       const response = await axios.get(
-//         endpoints.GET_ALL_ADMIN + `?limit=${data.limit}&offset=${data.offset}`,
-//         {
-//           headers: {
-//             Authorization: `Bearer ${data.authToken}`
-//           }
-//         }
-//       );
+export const getBannedModList = createAsyncThunk(
+  'adminManage/getBannedModList',
+  async (data, api) => {
+    try {
+      api.dispatch(modManageSlice.actions.loading());
+      const response = await axios.get(
+        endpoints.GET_ALL_ADMIN + `?limit=${data.limit}&offset=${data.offset}`,
+        {
+          headers: {
+            Authorization: `Bearer ${data.authToken}`
+          }
+        }
+      );
 
-//       return response.data;
-//     } catch (err) {
-//       return api.rejectWithValue(err.response.data.error);
-//     }
-//   }
-// );
+      return response.data;
+    } catch (err) {
+      return api.rejectWithValue(err.response.data.error);
+    }
+  }
+);
 
 export const addMod = createAsyncThunk(
   'adminManage/addMod',
@@ -119,7 +119,7 @@ export const disableMod = createAsyncThunk(
           }
         }
       );
-      return response.data;
+      return { username: data.username };
     } catch (err) {
       return api.rejectWithValue(err.response.data.error);
     }
@@ -177,6 +177,30 @@ export const modManageSlice = createSlice({
       state.err = action.payload;
     },
 
+    [getNoBanModList.fulfilled]: (state, action) => {
+      let newValues = [...state.noBanModList, ...action.payload];
+      state.noBanModList = newValues.filter(
+        (item, index, self) => self.findIndex((i) => i.id === item.id) === index
+      );
+
+      state.done = true;
+      state.err = null;
+    },
+    [getNoBanModList.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.err = action.payload;
+    },
+    [getBannedModList.fulfilled]: (state, action) => {
+      state.bannedModList = [...state.bannedModList, ...action.payload];
+
+      state.done = true;
+      state.err = null;
+    },
+    [getBannedModList.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.err = action.payload;
+    },
+
     [addMod.fulfilled]: (state, action) => {
       state.isFulfilled = true;
       state.isLoading = false;
@@ -190,8 +214,8 @@ export const modManageSlice = createSlice({
     },
     [disableMod.fulfilled]: (state, action) => {
       state.isFulfilled = true;
-      state.modList = state.modList.filter(
-        (mod) => mod.id !== action.payload.data.id
+      state.bannedModList = state.bannedModList.filter(
+        (mod) => mod.username !== action.payload.username
       );
       state.isLoading = false;
     },
