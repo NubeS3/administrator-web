@@ -14,11 +14,9 @@ const BannedUser = ({ authToken, bannedUserList, isRejected, isFulfilled }) => {
   const [selected, setSelected] = useState([]);
 
   useEffect(() => {
-    // store.dispatch(
-    //   getBannedUserList({ authToken: authToken, limit: 10, offset: 0 })
-    // );
-    console.log(bannedUserList);
-    return () => {};
+    store.dispatch(
+      getBannedUserList({ authToken: authToken, limit: 10, offset: 0 })
+    );
   }, []);
 
   const onAddUserClick = () => {
@@ -84,10 +82,7 @@ const BannedUser = ({ authToken, bannedUserList, isRejected, isFulfilled }) => {
 const mapStateToProps = (state) => {
   const authToken = state.authen.authToken;
   const bannedUserList = state.userManage.bannedUserList;
-  const isFulfilled = state.userManage.isFulfilled;
-  const isRejected = state.userManage.isRejected;
-  console.log(isFulfilled, isRejected);
-  return { authToken, bannedUserList, isFulfilled, isRejected };
+  return { authToken, bannedUserList };
 };
 
 export default connect(mapStateToProps)(BannedUser);

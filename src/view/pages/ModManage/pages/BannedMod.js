@@ -8,14 +8,13 @@ import { getModList } from '../../../../store/modManage';
 import ModTable from '../components/ModTable';
 import BanUser from '../../../../components/DeleteUserSideDrawer/BanUser';
 
-const BannedMod = ({ authToken, bannedModList, isRejected, isFulfilled }) => {
+const BannedMod = ({ authToken, bannedModList }) => {
   const [openCreateMod, setOpenCreateMod] = useState(false);
   const [openBanMod, setOpenBanMod] = useState(false);
   const [selected, setSelected] = useState([]);
 
   useEffect(() => {
     store.dispatch(getModList({ authToken: authToken, limit: 10, offset: 0 }));
-    return () => {};
   }, []);
 
   const onAddModClick = () => {
@@ -82,10 +81,7 @@ const BannedMod = ({ authToken, bannedModList, isRejected, isFulfilled }) => {
 const mapStateToProps = (state) => {
   const authToken = state.authen.authToken;
   const bannedModList = state.modManage.bannedModList;
-  const isFulfilled = state.modManage.isFulfilled;
-  const isRejected = state.modManage.isRejected;
-  console.log(isFulfilled, isRejected);
-  return { authToken, bannedModList, isFulfilled, isRejected };
+  return { authToken, bannedModList };
 };
 
 export default connect(mapStateToProps)(BannedMod);

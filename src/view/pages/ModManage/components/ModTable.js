@@ -3,7 +3,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import store from '../../../../store';
 import { getModList } from '../../../../store/modManage';
 const ModTable = ({ items, authToken, selected, setSelected }) => {
-  const LIMIT = 20;
+  const LIMIT = 10;
   const [offset, setOffset] = React.useState(0);
 
   React.useEffect(() => {
