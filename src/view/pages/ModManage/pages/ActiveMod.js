@@ -11,7 +11,6 @@ import BanUser from '../../../../components/DeleteUserSideDrawer/BanUser';
 const ActiveMod = ({ authToken, noBanModList }) => {
   const [openCreateMod, setOpenCreateMod] = React.useState(false);
   const [openBanMod, setOpenBanMod] = React.useState(false);
-
   const [selected, setSelected] = React.useState([]);
 
   useEffect(() => {

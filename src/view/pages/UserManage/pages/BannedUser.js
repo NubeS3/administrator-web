@@ -18,7 +18,6 @@ const BannedUser = ({ authToken, bannedUserList, isRejected, isFulfilled }) => {
     store.dispatch(
       getBannedUserList({ authToken: authToken, limit: 10, offset: 0 })
     );
-    return () => {};
   }, []);
 
   const onAddUserClick = () => {
@@ -86,10 +85,7 @@ const BannedUser = ({ authToken, bannedUserList, isRejected, isFulfilled }) => {
 const mapStateToProps = (state) => {
   const authToken = state.authen.authToken;
   const bannedUserList = state.userManage.bannedUserList;
-  const isFulfilled = state.userManage.isFulfilled;
-  const isRejected = state.userManage.isRejected;
-  console.log(isFulfilled, isRejected);
-  return { authToken, bannedUserList, isFulfilled, isRejected };
+  return { authToken, bannedUserList };
 };
 
 export default connect(mapStateToProps)(BannedUser);
