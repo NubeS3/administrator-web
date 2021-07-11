@@ -7,6 +7,7 @@ const initialState = {
   done: false,
   err: null,
   modList: [],
+  // noBanModList: [],
   bannedModList: [],
   newMod: {},
   isFulfilled: false,
@@ -34,6 +35,48 @@ export const getModList = createAsyncThunk(
     }
   }
 );
+
+// export const getNoBanModList = createAsyncThunk(
+//   'adminManage/getNoBanModList',
+//   async (data, api) => {
+//     try {
+//       api.dispatch(modManageSlice.actions.loading());
+//       const response = await axios.get(
+//         endpoints.GET_ALL_ADMIN + `?limit=${data.limit}&offset=${data.offset}`,
+//         {
+//           headers: {
+//             Authorization: `Bearer ${data.authToken}`
+//           }
+//         }
+//       );
+
+//       return response.data;
+//     } catch (err) {
+//       return api.rejectWithValue(err.response.data.error);
+//     }
+//   }
+// );
+
+// export const getBannedModList = createAsyncThunk(
+//   'adminManage/getBannedModList',
+//   async (data, api) => {
+//     try {
+//       api.dispatch(modManageSlice.actions.loading());
+//       const response = await axios.get(
+//         endpoints.GET_ALL_ADMIN + `?limit=${data.limit}&offset=${data.offset}`,
+//         {
+//           headers: {
+//             Authorization: `Bearer ${data.authToken}`
+//           }
+//         }
+//       );
+
+//       return response.data;
+//     } catch (err) {
+//       return api.rejectWithValue(err.response.data.error);
+//     }
+//   }
+// );
 
 export const addMod = createAsyncThunk(
   'adminManage/addMod',

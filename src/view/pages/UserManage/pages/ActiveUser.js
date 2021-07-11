@@ -17,7 +17,6 @@ const ActiveUser = ({ authToken, noBanUserList }) => {
     store.dispatch(
       getNoBanUserList({ authToken: authToken, limit: 10, offset: 0 })
     );
-    console.log(noBanUserList);
   }, []);
 
   const onAddUserClick = () => {
