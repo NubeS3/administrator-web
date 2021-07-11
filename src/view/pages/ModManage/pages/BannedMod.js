@@ -7,6 +7,7 @@ import { getModList } from '../../../../store/modManage';
 // import ListButtonAdmin from '../components/ListButtonAdmin';
 import ModTable from '../components/ModTable';
 import BanUser from '../../../../components/DeleteUserSideDrawer/BanUser';
+import BanButton from '../components/BanButton';
 
 const BannedMod = ({ authToken, bannedModList, isRejected, isFulfilled }) => {
   const [openCreateMod, setOpenCreateMod] = useState(false);
@@ -22,7 +23,7 @@ const BannedMod = ({ authToken, bannedModList, isRejected, isFulfilled }) => {
     setOpenCreateMod(true);
   };
 
-  const onBanModClick = () => {
+  const onUnbanModClick = () => {
     setOpenBanMod(true);
   };
 
@@ -32,7 +33,7 @@ const BannedMod = ({ authToken, bannedModList, isRejected, isFulfilled }) => {
         <div className="relative flex flex-col justify-start h-full px-3 md:w-full">
           <div className="relative p-1 flex items-center w-full space-x-4 justify-start">
             <div className="flex items-end text-black dark:text-white text-4xl">
-              Active Moderators
+              Banned Moderators
             </div>
           </div>
         </div>
@@ -55,14 +56,15 @@ const BannedMod = ({ authToken, bannedModList, isRejected, isFulfilled }) => {
           setHide={() => setOpenBanMod(false)}
         >
           <BanUser
+            banAction={false}
             selected={selected}
             onClose={() => setOpenBanMod(false)}
             setSelected={setSelected}
-            Mod={selected?.length > 0 ? selected?.[0].username : ''}
+            user={selected?.length > 0 ? selected?.[0].username : ''}
             type={'mod'}
           />
         </SideDrawer>
-
+        <BanButton selected={selected} onUnbanUserClick={onUnbanModClick} />
         {/* <ListButtonAdmin
           onAddModClick={onAddModClick}
           onBanModClick={onBanModClick}

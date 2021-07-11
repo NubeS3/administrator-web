@@ -83,6 +83,30 @@ export const disableMod = createAsyncThunk(
   }
 );
 
+export const enableMod = createAsyncThunk(
+  'adminManage/enableMod',
+  async (data, api) => {
+    try {
+      api.dispatch(modManageSlice.actions.loading(true));
+      const response = await axios.patch(
+        endpoints.BAN_MOD,
+        {
+          username: data.username,
+          disable: false
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${data.authToken}`
+          }
+        }
+      );
+      return { username: data.username };
+    } catch (err) {
+      return api.rejectWithValue(err.response.data.error);
+    }
+  }
+);
+
 export const modManageSlice = createSlice({
   name: 'modManage',
   initialState: initialState,
@@ -124,11 +148,23 @@ export const modManageSlice = createSlice({
     [disableMod.fulfilled]: (state, action) => {
       state.isFulfilled = true;
       state.modList = state.modList.filter(
-        (mod) => mod.id !== action.payload.id
+        (mod) => mod.id !== action.payload.data.id
       );
       state.isLoading = false;
     },
     [disableMod.rejected]: (state, action) => {
+      state.isRejected = true;
+      state.isLoading = false;
+      state.err = action.payload;
+    },
+    [enableMod.fulfilled]: (state, action) => {
+      state.isFulfilled = true;
+      state.bannedModList = state.bannedModList.filter(
+        (mod) => mod.username !== action.payload.username
+      );
+      state.isLoading = false;
+    },
+    [enableMod.rejected]: (state, action) => {
       state.isRejected = true;
       state.isLoading = false;
       state.err = action.payload;

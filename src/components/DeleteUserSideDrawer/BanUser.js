@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import store from '../../store';
-import { disableMod } from '../../store/modManage';
-import { clearUserState, disableUser } from '../../store/userManage';
+import { disableMod, enableMod } from '../../store/modManage';
+import {
+  clearUserState,
+  disableUser,
+  enableUser
+} from '../../store/userManage';
 import SuccessBanUser from './SuccessBanUser';
 
 const BanUser = ({
+  banAction,
   authToken,
   onClose,
   selected,
@@ -21,12 +26,37 @@ const BanUser = ({
   const onBan = () => {
     if (type === 'user') {
       store.dispatch(
-        disableUser({ authToken: authToken, email: selected[0].email })
+        disableUser({
+          authToken: authToken,
+          email: selected[0].email
+        })
       );
     }
     if (type === 'mod') {
       store.dispatch(
-        disableMod({ authToken: authToken, username: selected[0].username })
+        disableMod({
+          authToken: authToken,
+          username: selected[0].username
+        })
+      );
+    }
+  };
+
+  const onUnBan = () => {
+    if (type === 'user') {
+      store.dispatch(
+        enableUser({
+          authToken: authToken,
+          email: selected[0].email
+        })
+      );
+    }
+    if (type === 'mod') {
+      store.dispatch(
+        enableMod({
+          authToken: authToken,
+          username: selected[0].username
+        })
       );
     }
   };
@@ -60,9 +90,15 @@ const BanUser = ({
       {!success ? (
         <div className="flex flex-col w-96">
           <div className="flex flex-row justify-between px-4 py-4">
-            <h1 className="text-2xl font-medium">
-              Ban {user || `this ${type}`}?
-            </h1>
+            {banAction ? (
+              <h1 className="text-2xl font-medium">
+                Ban {user || `this ${type}`}?
+              </h1>
+            ) : (
+              <h1 className="text-2xl font-medium">
+                Unban {user || `this ${type}`}?
+              </h1>
+            )}
             <button
               className="self-start my-1 focus:outline-none"
               onClick={onClose}
@@ -84,18 +120,36 @@ const BanUser = ({
             </button>
           </div>
           <p className="px-5">
-            Are you sure want to ban {user || 'user'} as a {type}? You can
-            unbann this {type} later.
+            {banAction ? (
+              <>
+                Are you sure want to ban {user || 'user'} as a {type}? You can
+                unban this {type} later.
+              </>
+            ) : (
+              <>
+                Do you want to unban {user || 'user'}? This {type} will be
+                active again.
+              </>
+            )}
           </p>
-          <button
-            className="absolute bottom-10 ml-6 py-2 px-4 bg-indigo-400 text-white w-24 transition ease-in duration-200 hover:bg-indigo-600 text-center text-base focus:outline-none rounded-sm"
-            onClick={onBan}
-          >
-            Ban user
-          </button>
+          {banAction ? (
+            <button
+              className="absolute bottom-10 ml-6 py-2 px-4 bg-indigo-400 text-white w-24 transition ease-in duration-200 hover:bg-indigo-600 text-center text-base focus:outline-none rounded-sm"
+              onClick={onBan}
+            >
+              Ban {type}
+            </button>
+          ) : (
+            <button
+              className="absolute bottom-10 ml-6 py-2 px-4 bg-indigo-400 text-white w-32 transition ease-in duration-200 hover:bg-indigo-600 text-center text-base focus:outline-none rounded-sm"
+              onClick={onUnBan}
+            >
+              Unban {type}
+            </button>
+          )}
         </div>
       ) : (
-        <SuccessBanUser close={onClose} user={type} />
+        <SuccessBanUser close={onClose} user={type} banAction={banAction} />
       )}{' '}
     </>
   );

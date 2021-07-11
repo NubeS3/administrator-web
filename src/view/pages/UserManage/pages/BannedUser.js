@@ -7,6 +7,7 @@ import { getUserList, getBannedUserList } from '../../../../store/userManage';
 import ListButtonAdmin from '../components/ListButtonAdmin';
 import UserTable from '../components/UserTable';
 import BanUser from '../../../../components/DeleteUserSideDrawer/BanUser';
+import BanButton from '../components/BanButton';
 
 const BannedUser = ({ authToken, bannedUserList, isRejected, isFulfilled }) => {
   const [openCreateUser, setOpenCreateUser] = useState(false);
@@ -14,10 +15,9 @@ const BannedUser = ({ authToken, bannedUserList, isRejected, isFulfilled }) => {
   const [selected, setSelected] = useState([]);
 
   useEffect(() => {
-    // store.dispatch(
-    //   getBannedUserList({ authToken: authToken, limit: 10, offset: 0 })
-    // );
-    console.log(bannedUserList);
+    store.dispatch(
+      getBannedUserList({ authToken: authToken, limit: 10, offset: 0 })
+    );
     return () => {};
   }, []);
 
@@ -25,7 +25,7 @@ const BannedUser = ({ authToken, bannedUserList, isRejected, isFulfilled }) => {
     setOpenCreateUser(true);
   };
 
-  const onBanUserClick = () => {
+  const onUnbanUserClick = () => {
     setOpenBanUser(true);
   };
 
@@ -58,6 +58,7 @@ const BannedUser = ({ authToken, bannedUserList, isRejected, isFulfilled }) => {
           setHide={() => setOpenBanUser(false)}
         >
           <BanUser
+            banAction={false}
             onClose={() => setOpenBanUser(false)}
             selected={selected}
             setSelected={setSelected}
@@ -70,6 +71,7 @@ const BannedUser = ({ authToken, bannedUserList, isRejected, isFulfilled }) => {
           onBanUserClick={onBanUserClick}
           selected={selected}
         /> */}
+        <BanButton selected={selected} onUnbanUserClick={onUnbanUserClick} />
         <UserTable
           authToken={authToken}
           items={bannedUserList}

@@ -124,6 +124,30 @@ export const disableUser = createAsyncThunk(
   }
 );
 
+export const enableUser = createAsyncThunk(
+  'adminManage/enableUser',
+  async (data, api) => {
+    try {
+      api.dispatch(userManageSlice.actions.loading(true));
+      const response = await axios.patch(
+        endpoints.BAN_USER,
+        {
+          email: data.email,
+          is_ban: false
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${data.authToken}`
+          }
+        }
+      );
+      return { email: data.email };
+    } catch (err) {
+      return api.rejectWithValue(err.response.data.error);
+    }
+  }
+);
+
 export const userManageSlice = createSlice({
   name: 'userManage',
   initialState: initialState,
@@ -183,11 +207,24 @@ export const userManageSlice = createSlice({
     [disableUser.fulfilled]: (state, action) => {
       state.isFulfilled = true;
       state.userList = state.userList.filter(
-        (user) => user.id !== action.payload.id
+        (user) => user.id !== action.payload.data.id
       );
       state.isLoading = false;
     },
     [disableUser.rejected]: (state, action) => {
+      state.isRejected = true;
+      state.isLoading = false;
+      state.err = action.payload;
+    },
+
+    [enableUser.fulfilled]: (state, action) => {
+      state.isFulfilled = true;
+      state.bannedUserList = state.bannedUserList.filter(
+        (user) => user.email !== action.payload.email
+      );
+      state.isLoading = false;
+    },
+    [enableUser.rejected]: (state, action) => {
       state.isRejected = true;
       state.isLoading = false;
       state.err = action.payload;

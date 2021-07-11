@@ -56,6 +56,7 @@ const ActiveMod = ({ authToken, modList }) => {
           setHide={() => setOpenBanMod(false)}
         >
           <BanUser
+            banAction={true}
             selected={selected}
             onClose={() => setOpenBanMod(false)}
             setSelected={setSelected}

@@ -57,6 +57,7 @@ const ActiveUser = ({ authToken, noBanUserList }) => {
           setHide={() => setOpenBanUser(false)}
         >
           <BanUser
+            banAction={true}
             onClose={() => setOpenBanUser(false)}
             selected={selected}
             setSelected={setSelected}
