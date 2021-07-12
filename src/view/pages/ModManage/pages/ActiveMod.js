@@ -3,20 +3,18 @@ import { connect } from 'react-redux';
 import CreateMod from '../../../../components/CreateUser/CreateMod';
 import SideDrawer from '../../../../components/SideDrawer/SideDrawer';
 import store from '../../../../store';
-import { getNoBanModList } from '../../../../store/modManage';
+import { getModList, getNoBanModList } from '../../../../store/modManage';
 import ListButtonAdmin from '../components/ListButtonAdmin';
 import ModTable from '../components/ModTable';
 import BanUser from '../../../../components/DeleteUserSideDrawer/BanUser';
 
-const ActiveMod = ({ authToken, noBanModList }) => {
+const ActiveMod = ({ authToken, modList }) => {
   const [openCreateMod, setOpenCreateMod] = React.useState(false);
   const [openBanMod, setOpenBanMod] = React.useState(false);
   const [selected, setSelected] = React.useState([]);
 
   useEffect(() => {
-    store.dispatch(
-      getNoBanModList({ authToken: authToken, limit: 10, offset: 0 })
-    );
+    store.dispatch(getModList({ authToken: authToken, limit: 10, offset: 0 }));
     return () => {};
   }, []);
 
@@ -73,7 +71,7 @@ const ActiveMod = ({ authToken, noBanModList }) => {
         />
         <ModTable
           authToken={authToken}
-          items={noBanModList}
+          items={modList}
           selected={selected}
           setSelected={setSelected}
         />
@@ -84,8 +82,8 @@ const ActiveMod = ({ authToken, noBanModList }) => {
 
 const mapStateToProps = (state) => {
   const authToken = state.authen.authToken;
-  const noBanModList = state.modManage.noBanModList;
-  return { authToken, noBanModList };
+  const modList = state.modManage.modList;
+  return { authToken, modList };
 };
 
 export default connect(mapStateToProps)(ActiveMod);

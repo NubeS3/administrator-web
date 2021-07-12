@@ -214,7 +214,7 @@ export const modManageSlice = createSlice({
     },
     [disableMod.fulfilled]: (state, action) => {
       state.isFulfilled = true;
-      state.bannedModList = state.bannedModList.filter(
+      state.modList = state.modList.filter(
         (mod) => mod.username !== action.payload.username
       );
       state.isLoading = false;
